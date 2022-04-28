@@ -12,10 +12,6 @@ import lombok.Data;
 @Entity
 public class Brand {
 
-    //@Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // @Column(unique = true, nullable = false)
-    // private long brand_id;
     @Id
     @Column(unique = true, nullable = false, length = 100, name = "Name")
     private String name;
