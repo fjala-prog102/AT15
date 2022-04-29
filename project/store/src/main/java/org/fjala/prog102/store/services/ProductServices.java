@@ -19,4 +19,12 @@ public class ProductServices {
     public Product saveProduct(Product product) {
         return productRepository.save(product);
     }
+    public boolean deleteProduct(Long product_id) {
+        try {
+            productRepository.deleteById(product_id);
+            return true;
+        } catch(Exception e) {
+            return false;
+        }
+    }
 }
