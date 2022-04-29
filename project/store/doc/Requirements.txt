@@ -1,0 +1,56 @@
+Requirements, 1st Draft (4/19):
+
+1st Increment
+ * Products (name, presentation, description, price, active) /*Inactivate a product is a one way operation. CRUD + Add/Remove Category*/
+ * Categories (name, description) /*not nested but each Product may belong to several categories. CRUD + Add/Remove Product*/
+ * Brands (name, description, web site) /*CRUD + Add/Remove Product*/
+ * Discounts (percentage, start-date, end-date, description, per Product or per Category or per Brand)
+ * Client (first_name, last_name, identification_number, address) /*Natural persons only, don't consider ID complement*/
+
+2nd Increment
+ * Quote (date, expiration date=date+2days, client, client_address, description, total_cost) /*Clone/Regenerate*/
+   * Quote line (product, qtty, subtotal_cost)
+
+
+Requirements, 2nd Draft (4/28):
+
+Associations:
+ * Products can belong to 0 to many Categories
+ * Categories can have 0 to many Products
+ * Products can be added/removed to/from a Category				#  http://localhost:8080/store/categories/8/products/...
+ * Categories can be associated/dissociated to/from Products	    #  http://localhost:8080/store/products/1007/categories/...
+ * A Product should have a Brand, 1 and only 1					#  http://localhost:8080/store/products/1007/brand
+ * A Brand can be associated 0 or many Products					#  http://localhost:8080/store/brands/96/products
+ * A Discount can be associated to either {Product, or Category, or Brand} but only one of them
+
+
+Constraints
+ * Record identifiers fields can not be NULL or empty.
+ * Product mandatory fields: price, active.
+ * Discount mandatory fields: start-date, end-date, description
+ * Discount fields: start-date is before end-date
+ * In a Product Record, a {Product.name, Product.brand_fk} combination must be unique
+ * Client mandatory fields: first_name, last_name, identification_number, address
+ * Client identification_number is unique
+
+product
+-------------------
+product_id	|	name		| brand_fk
+1			| Leche Entera	| 1					# Nestle
+2			| Leche Entera	| 2					# PIL
+3			| Leche Entera	| 1					# Not allowed
+4			|
+5			|
+
+Other requirements:
+ * Brand and Category entities will have "name" as its Natural (Primary) Key.
+ * Other entities will have generated Primary Keys.
+
+Git Workflow: Feature Branch Workflow
+Main development branch:
+ * develop
+Feature branches examples:
+ * feature/client-entity
+ * feature/client-repository
+ * feature/client-services
+ * feature/client-controlllers
