@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DiscountServices {
     @Autowired
-    DiscountRepository discountRepository;
+    private DiscountRepository discountRepository;
 
     public ArrayList<Discount> getDiscounts() {
         return (ArrayList<Discount>) discountRepository.findAll();

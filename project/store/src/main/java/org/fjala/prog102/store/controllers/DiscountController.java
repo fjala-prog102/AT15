@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/discount")
 public class DiscountController {
     @Autowired
-    DiscountServices discountServices;
+    private DiscountServices discountServices;
 
     @GetMapping
     public ArrayList<Discount> getDiscounts() {

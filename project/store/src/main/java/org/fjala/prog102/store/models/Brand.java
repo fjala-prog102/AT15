@@ -9,11 +9,13 @@ import lombok.Data;
 @Data
 @Entity
 public class Brand {
-
     @Id
     @Column(unique = true, nullable = false, length = 100, name = "Name")
     private String name;
 
     @Column(name = "Description", length = 200)
     private String description;
+
+    @Column(name = "Website", length = 100)
+    private String website;
 }
