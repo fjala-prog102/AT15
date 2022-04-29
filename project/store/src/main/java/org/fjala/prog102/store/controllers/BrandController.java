@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/brand")
 public class BrandController {
     @Autowired
-    BrandServices brandServices;
+    private BrandServices brandServices;
 
     @GetMapping
     public List<Brand> getBrands() {

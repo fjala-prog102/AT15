@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class BrandServices {
     @Autowired
-    BrandRepository brandRepository;
+    private BrandRepository brandRepository;
 
     public List<Brand> getBrands() {
         return (List<Brand>) brandRepository.findAll();
