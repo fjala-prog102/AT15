@@ -17,11 +17,12 @@ public class ProductServices {
     }
 
     public Product saveProduct(Product product) {
-        return productRepository.save(product);
+        return productRepository.saveAndFlush(product);
     }
-    public boolean deleteProduct(Long product_id) {
+
+    public boolean deleteProduct(Long productId) {
         try {
-            productRepository.deleteById(product_id);
+            productRepository.deleteById(productId);
             return true;
         } catch(Exception e) {
             return false;
