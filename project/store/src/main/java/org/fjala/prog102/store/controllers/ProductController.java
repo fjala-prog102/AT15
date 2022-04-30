@@ -28,13 +28,14 @@ public class ProductController {
     public Product saveProduct(@RequestBody Product product) {
         return productServices.saveProduct(product);
     }
-    @DeleteMapping(path = "/{product_id}")
-    public String deleteProduct(@PathVariable("product_id") Long product_id) {
-        boolean result = productServices.deleteProduct(product_id);
-        if(result) {
-            return String.format("Product id=%s was deleted", product_id);
+
+    @DeleteMapping(path = "/{productId}")
+    public String deleteProduct(@PathVariable("productId") Long productId) {
+        boolean result = productServices.deleteProduct(productId);
+        if (result) {
+            return String.format("Product with id=%s was deleted", productId);
         } else {
-            return String.format("Product id=%s was not deleted", product_id);
+            return String.format("Product with id=%s was not able to be deleted", productId);
         }
     }
 }

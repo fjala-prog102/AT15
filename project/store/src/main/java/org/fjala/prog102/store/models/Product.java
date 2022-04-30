@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -14,20 +16,23 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    private long product_id;
+    private long productId;
 
-    @Column(name = "Name", length = 100)
+    @Column(name = "Name", length = 150)
     private String name;
 
-    @Column(name = "Presentation", length = 150)
+    @Column(name = "Presentation", length = 100)
     private String presentation;
 
-    @Column(name = "Description", length = 200)
+    @Column(name = "Description", length = 300)
     private String description;
 
-    @Column(name = "Price")
-    private int price;
+    @NotNull
+    @Digits(integer=9, fraction=2)
+    @Column(name = "Price", precision = 9, scale = 2)
+    private double price;
 
-    @Column(name = "Active")
-    private boolean active;
+    @NotNull
+    @Column(name = "Active", columnDefinition = "boolean default true")
+    private Boolean active;
 }
