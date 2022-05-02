@@ -16,7 +16,7 @@ public class CategoryServices {
     }
 
     public Category saveCategory(Category category) {
-        return categoryRepository.save(category);
+        return categoryRepository.saveAndFlush(category);
     }
 
     public List<Category> findByName(String name) {
