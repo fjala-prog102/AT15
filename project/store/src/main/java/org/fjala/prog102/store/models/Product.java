@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -40,7 +41,6 @@ public class Product {
 
     @NotNull
     @Digits(integer = 9, fraction = 2)
-    @Column(precision = 9, scale = 2)
     private double price;
 
     @NotNull
@@ -57,4 +57,9 @@ public class Product {
     @JsonIgnore
     @EqualsAndHashCode.Exclude
     private Set<Category> categories;
+
+    @OneToMany (mappedBy = "product")
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
+    private Set<Discount> discounts;
 }
