@@ -8,12 +8,12 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "category")
+@Table(name = "categories")
 public class Category {
     @Id
-    @Column(unique = true, nullable = false, name = "Name")
+    @Column(unique = true, nullable = false)
     private String name;
 
-    @Column(name = "Description", length = 300)
+    @Column(length = 300)
     private String description;
 }
