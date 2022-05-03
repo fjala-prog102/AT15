@@ -17,6 +17,19 @@ public class BrandServices {
     }
 
     public Brand saveBrand(Brand brand) {
-        return brandRepository.save(brand);
+        return brandRepository.saveAndFlush(brand);
+    }
+
+    public Brand findBrandByName(String name) {
+        return brandRepository.findBrandByName(name);
+    }
+
+    public boolean deleteBrandByName(String name) {
+        try {
+            brandRepository.deleteBrandByName(name);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
