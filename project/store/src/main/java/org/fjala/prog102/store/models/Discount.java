@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
-//import lombok.EqualsAndHashCode;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
@@ -33,16 +33,16 @@ public class Discount {
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = true)
-    //@EqualsAndHashCode.Exclude
+    @EqualsAndHashCode.Exclude
     private Product product;
 
     @ManyToOne
     @JoinColumn(name = "brand_name", nullable = true)
-    //@EqualsAndHashCode.Exclude
+    @EqualsAndHashCode.Exclude
     private Brand brand;
 
     @ManyToOne
     @JoinColumn(name = "category_name", nullable = true)
-    //@EqualsAndHashCode.Exclude
+    @EqualsAndHashCode.Exclude
     private Category category;
 }
