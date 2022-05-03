@@ -8,17 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-//import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-//import com.fasterxml.jackson.annotation.JsonIgnore;
-//import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
-//import lombok.EqualsAndHashCode;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
 @Table(name = "brands")
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "name")
 public class Brand {
     @Id
     @Column(unique = true, nullable = false, length = 100)
@@ -31,7 +28,7 @@ public class Brand {
     private String website;
 
     @OneToMany(mappedBy = "brand")
-    //@JsonIgnore
-    //@EqualsAndHashCode.Exclude
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
     private Set<Product> products;
 }

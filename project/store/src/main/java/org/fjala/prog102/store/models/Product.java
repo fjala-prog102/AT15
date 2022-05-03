@@ -15,17 +15,14 @@ import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 
-//import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-//import com.fasterxml.jackson.annotation.JsonIgnore;
-//import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
-//import lombok.EqualsAndHashCode;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
 @Table(name = "products")
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "productId")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,12 +49,12 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "brand_name", nullable = false)
-    //@EqualsAndHashCode.Exclude
+    @EqualsAndHashCode.Exclude
     private Brand brand;
 
     @ManyToMany
     @JoinTable(name = "products_categories", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_name"))
-    //@JsonIgnore
-    //@EqualsAndHashCode.Exclude
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
     private Set<Category> categories;
 }
