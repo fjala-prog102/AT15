@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/categories")
 public class CategoryController {
     @Autowired
     CategoryServices categoryServices;
 
     @GetMapping
-    public List<Category> getCategory() {
-        return categoryServices.getCategory();
+    public List<Category> getCategories() {
+        return categoryServices.getCategories();
     }
 
     @PostMapping
