@@ -26,16 +26,6 @@ public class BrandController {
         return brandServices.getBrands();
     }
 
-    @GetMapping(path = "/{name}")
-    public Optional<Brand> getBrandByName(@PathVariable("name") String brandName) {
-        return brandServices.getBrandByName(brandName);
-    }
-
-    @GetMapping(path = "/{name}/products")
-    public List<Product> getProductsByBrandName(@PathVariable("name") String brandName) {
-        return brandServices.getProductsByBrandName(brandName);
-    }
-
     @PostMapping
     public Brand saveBrand(@RequestBody Brand brand) {
         return brandServices.saveBrand(brand);
