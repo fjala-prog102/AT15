@@ -8,7 +8,7 @@ import org.fjala.prog102.store.models.Category;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, String> {
 
-    public abstract List<Category> findByName(String name);
+    List<Category> findByName(String name);
 
-    public abstract List<Category> deleteByName(String name);
+    List<Category> deleteByName(String name);
 }

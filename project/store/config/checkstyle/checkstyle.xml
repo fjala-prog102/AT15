@@ -84,6 +84,12 @@
   <!--   <property name="fileExtensions" value="java"/> -->
   <!-- </module> -->
 
+  <module name="SuppressionSingleFilter">
+    <property name="checks" value="MagicNumber" />
+    <property name="files"
+              value="(Brand|Category|Client|Discount|Product).java" />
+  </module>
+
   <module name="TreeWalker">
 
     <!-- Checks for Javadoc comments.                     -->

@@ -1,10 +1,8 @@
 package org.fjala.prog102.store.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.fjala.prog102.store.models.Brand;
-import org.fjala.prog102.store.models.Product;
 import org.fjala.prog102.store.services.BrandServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
