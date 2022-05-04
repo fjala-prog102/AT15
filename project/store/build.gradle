@@ -39,6 +39,19 @@ checkstyle {
     checkstyleMain.excludes = ["**/src/test/**"]
 }
 
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                "org/fjala/prog102/store/models/*.class",
+                "org/fjala/prog102/store/StoreApplication.class"
+            ])
+        }))
+    }
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
