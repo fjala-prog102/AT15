@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClientServices {
     @Autowired
-    ClientRepository clientRepository;
+    private ClientRepository clientRepository;
 
     public List<Client> getClients() {
         return (List<Client>) clientRepository.findAll();

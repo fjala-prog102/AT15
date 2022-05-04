@@ -36,7 +36,7 @@ public class ProductServices {
         try {
             productRepository.deleteById(productId);
             return true;
-        } catch(Exception e) {
+        } catch (Exception e) {
             return false;
         }
     }
