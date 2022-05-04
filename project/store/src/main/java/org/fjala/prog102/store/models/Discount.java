@@ -20,6 +20,7 @@ public class Discount {
 
     @Min(value = 0)
     @Max(value = 1)
+    @NotNull
     private double percentage;
 
     @NotNull
