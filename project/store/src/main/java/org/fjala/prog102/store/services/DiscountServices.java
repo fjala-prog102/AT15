@@ -17,10 +17,10 @@ public class DiscountServices {
     }
 
     public Discount saveDiscount(Discount discount) {
-        if(discountRepository.existsById((discount.getDiscountId()))){
-            throw new RuntimeException("Cannot create a new Discount with an existing ID");
-        } else {
+        if (discount.getDiscountId() == null) {
             return discountRepository.save(discount);
+        } else {
+            throw new RuntimeException("To create a new discount, you do not have to set an ID");
         }
     }
 
