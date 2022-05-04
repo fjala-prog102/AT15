@@ -1,38 +1,65 @@
 package org.fjala.prog102.store.models;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    private long productId;
+    private Long productId;
 
-    @Column(name = "Name", length = 150)
+    @Column(length = 150)
     private String name;
 
-    @Column(name = "Presentation", length = 100)
+    @Column(length = 100)
     private String presentation;
 
-    @Column(name = "Description", length = 300)
+    @Column(length = 300)
     private String description;
 
     @NotNull
-    @Digits(integer=9, fraction=2)
-    @Column(name = "Price", precision = 9, scale = 2)
+    @Digits(integer = 9, fraction = 2)
     private double price;
 
     @NotNull
-    @Column(name = "Active", columnDefinition = "boolean default true")
+    @Column(columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean active;
+
+    @ManyToOne
+    @JoinColumn(name = "brand_name", nullable = false)
+    @EqualsAndHashCode.Exclude
+    private Brand brand;
+
+    @ManyToMany
+    @JoinTable(name = "products_categories", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_name"))
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
+    private Set<Category> categories;
+
+    @OneToMany (mappedBy = "product")
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
+    private Set<Discount> discounts;
 }

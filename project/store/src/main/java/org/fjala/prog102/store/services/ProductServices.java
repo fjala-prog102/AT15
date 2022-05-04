@@ -17,7 +17,19 @@ public class ProductServices {
     }
 
     public Product saveProduct(Product product) {
-        return productRepository.saveAndFlush(product);
+        if (productRepository.existsById(product.getProductId())) {
+            throw new RuntimeException("Cannot create a new Product with an existing ID");
+        } else {
+            return productRepository.saveAndFlush(product);
+        }
+    }
+
+    public Product updateProduct(Product product) {
+        if (productRepository.existsById(product.getProductId())) {
+            return productRepository.saveAndFlush(product);
+        } else {
+            throw new RuntimeException("The providen Product does not exists");
+        }
     }
 
     public boolean deleteProduct(Long productId) {
