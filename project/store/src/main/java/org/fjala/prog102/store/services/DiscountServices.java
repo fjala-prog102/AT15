@@ -17,6 +17,27 @@ public class DiscountServices {
     }
 
     public Discount saveDiscount(Discount discount) {
-        return discountRepository.save(discount);
+        if(discountRepository.existsById((discount.getDiscountId()))){
+            throw new RuntimeException("Cannot create a new Discount with an existing ID");
+        } else {
+            return discountRepository.save(discount);
+        }
+    }
+
+    public Discount updateDiscount(Discount discount) {
+        if (discountRepository.existsById(discount.getDiscountId())) {
+            return discountRepository.saveAndFlush(discount);
+        } else {
+            throw new RuntimeException("The given Discount does not exists");
+        }
+    }
+
+    public boolean deleteDiscount(Long discountID) {
+        try {
+            discountRepository.deleteById(discountID);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
