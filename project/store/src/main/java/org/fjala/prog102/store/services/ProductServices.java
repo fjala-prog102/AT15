@@ -17,10 +17,10 @@ public class ProductServices {
     }
 
     public Product saveProduct(Product product) {
-        if (productRepository.existsById(product.getProductId())) {
-            throw new RuntimeException("Cannot create a new Product with an existing ID");
-        } else {
+        if (product.getProductId() == null) {
             return productRepository.saveAndFlush(product);
+        } else {
+            throw new RuntimeException("To create a new product, you do not have to set an ID");
         }
     }
 

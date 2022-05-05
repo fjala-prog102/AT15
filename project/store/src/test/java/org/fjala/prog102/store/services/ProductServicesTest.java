@@ -31,10 +31,7 @@ public class ProductServicesTest {
         brand.setName("Sony");
         brandServices.saveBrand(brand);
 
-        final long productId = 7777L;
-
         Product product = new Product();
-        product.setProductId(productId);
         product.setActive(true);
         product.setPrice(1);
         product.setBrand(brand);
