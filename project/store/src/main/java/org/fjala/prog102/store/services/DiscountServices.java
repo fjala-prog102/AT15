@@ -17,7 +17,7 @@ public class DiscountServices {
     }
 
     public Discount saveDiscount(Discount discount) {
-        if(discountRepository.existsById((discount.getDiscountId()))){
+        if (discountRepository.existsById((discount.getDiscountId()))) {
             throw new RuntimeException("Cannot create a new Discount with an existing ID");
         } else {
             return discountRepository.save(discount);
