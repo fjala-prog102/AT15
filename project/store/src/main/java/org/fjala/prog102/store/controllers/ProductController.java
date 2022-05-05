@@ -1,6 +1,7 @@
 package org.fjala.prog102.store.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.fjala.prog102.store.models.Product;
 import org.fjala.prog102.store.services.ProductServices;
@@ -23,6 +24,11 @@ public class ProductController {
     @GetMapping
     public List<Product> getProducts() {
         return productServices.getProducts();
+    }
+
+    @GetMapping(path = "/{productId}")
+    public Optional<Product> getProductById(@PathVariable("productId") Long productId) {
+        return productServices.getById(productId);
     }
 
     @PostMapping
