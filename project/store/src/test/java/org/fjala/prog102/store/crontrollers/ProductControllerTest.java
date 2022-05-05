@@ -12,7 +12,7 @@ public class ProductControllerTest {
     private ProductController productController;
 
     @Test
-    public void itShouldListDiscounts() {
+    public void itShouldListProducts() {
         assertThat(productController).isNotNull();
     }
 }
