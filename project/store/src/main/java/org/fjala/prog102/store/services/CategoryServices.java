@@ -16,7 +16,11 @@ public class CategoryServices {
     }
 
     public Category saveCategory(Category category) {
-        return categoryRepository.saveAndFlush(category);
+        if (categoryRepository.existsById(category.getName())) {
+            throw new RuntimeException("Cannot create a new category with the same name as an existing one.");
+        } else {
+            return categoryRepository.saveAndFlush(category);
+        }
     }
 
     public List<Category> findByName(String name) {
@@ -25,10 +29,18 @@ public class CategoryServices {
 
     public boolean deleteCagetory(String name) {
         try {
-            categoryRepository.deleteByName(name);
+            categoryRepository.deleteById(name);
             return true;
         } catch (Exception e) {
             return false;
+        }
+    }
+
+    public Category updateCategory(Category category) {
+        if (categoryRepository.existsById(category.getName())) {
+            return categoryRepository.saveAndFlush(category);
+        } else {
+            throw new RuntimeException("The providen Category name does not exist.");
         }
     }
 }
