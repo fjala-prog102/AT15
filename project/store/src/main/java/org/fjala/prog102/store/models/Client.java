@@ -15,9 +15,8 @@ import lombok.Data;
 public class Client {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    private Long clientId;
+    private Long identificationNumber;
 
     @Column(length = 100)
     private String firstName;
@@ -27,7 +26,4 @@ public class Client {
 
     @Column(length = 200)
     private String address;
-
-    @Column(unique = true, nullable = false, length = 15)
-    private String identificationNumber;
 }

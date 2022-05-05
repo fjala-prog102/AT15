@@ -25,6 +25,6 @@ public class ClientServices {
     }
 
     public Client findClient(Client client) {
-        return clientRepository.findById(client.getClientId()).orElse(null);
+        return clientRepository.findById(client.getIdentificationNumber()).orElse(null);
     }
 }
