@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +29,11 @@ public class CategoryController {
         return categoryServices.saveCategory(category);
     }
 
+    @PutMapping
+    public Category updateCategory(@RequestBody Category category) {
+        return categoryServices.updateCategory(category);
+    }
+
     @GetMapping(path = "/{name}")
     public List<Category> findByName(@PathVariable("name") String name) {
         return categoryServices.findByName(name);
@@ -42,5 +48,4 @@ public class CategoryController {
             return String.format("Category name=%s was  not deleted", name);
         }
     }
-
 }
