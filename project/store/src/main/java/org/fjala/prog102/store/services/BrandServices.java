@@ -26,7 +26,7 @@ public class BrandServices {
 
     public boolean deleteBrandByName(String name) {
         try {
-            brandRepository.deleteBrandByName(name);
+            brandRepository.deleteById(name);
             return true;
         } catch (Exception e) {
             return false;
