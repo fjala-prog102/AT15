@@ -26,4 +26,14 @@ public class ClientController {
     public Client saveClient(@RequestBody Client client) {
         return clientServices.saveClient(client);
     }
+
+    @GetMapping("/delete/{clientId}")
+    public void deleteClient(Client client) {
+        clientServices.deleteClient(client);
+    }
+
+    @GetMapping("/find/{clientId}")
+    public Client findClient(Client client) {
+        return clientServices.findClient(client);
+    }
 }
