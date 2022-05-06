@@ -25,8 +25,11 @@ public class DiscountApplicationTest {
 
     @Test
     public void itShouldCreateADiscount() throws Exception {
-        String stringBody = "{\n\"percentage\": 0.2,\n\"startDate\": \"2022-03-31\"\n\"endDate\": \"2022-04-01\"\n\"description\": \"winter discount\"";
-        
+        String stringBody = "{\n\"percentage\": 0.2,\n";
+        stringBody += "\"startDate\": \"2022-03-31\",\n";
+        stringBody += "\"endDate\": \"2022-04-01\",\n";
+        stringBody += "\"description\": \"winter discount\"\n";
+        stringBody += "}";
         this.mockMvc.perform(
             post("/discounts")
             .content(stringBody)
