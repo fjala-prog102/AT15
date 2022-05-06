@@ -1,6 +1,7 @@
 package org.fjala.prog102.store.controllers;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.fjala.prog102.store.models.Discount;
 import org.fjala.prog102.store.services.DiscountServices;
@@ -23,6 +24,11 @@ public class DiscountController {
     @GetMapping
     public ArrayList<Discount> getDiscounts() {
         return discountServices.getDiscounts();
+    }
+
+    @GetMapping(path = "/{discountId}")
+    public Optional<Discount> getById(@PathVariable("discountId") Long discountId) {
+        return discountServices.getById(discountId);
     }
 
     @PostMapping

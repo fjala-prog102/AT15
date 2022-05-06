@@ -1,6 +1,7 @@
 package org.fjala.prog102.store.services;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.fjala.prog102.store.models.Discount;
 import org.fjala.prog102.store.repositories.DiscountRepository;
@@ -39,5 +40,9 @@ public class DiscountServices {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public Optional<Discount> getById(Long id) {
+        return discountRepository.findById(id);
     }
 }
