@@ -2,6 +2,7 @@ package org.fjala.prog102.store.services;
 
 import java.util.List;
 
+import org.fjala.prog102.store.exception.ResourceNotFoundException;
 import org.fjala.prog102.store.models.Brand;
 import org.fjala.prog102.store.repositories.BrandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +25,11 @@ public class BrandServices {
         return brandRepository.findBrandByName(name);
     }
 
-    public boolean deleteBrandByName(String name) {
+    public void deleteBrandByName(String name) throws ResourceNotFoundException {
         try {
             brandRepository.deleteById(name);
-            return true;
         } catch (Exception e) {
-            return false;
+            throw new ResourceNotFoundException(String.format("Brand %s was not found", name), e);
         }
     }
 }
