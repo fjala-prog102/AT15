@@ -37,7 +37,7 @@ public class BrandController {
     @DeleteMapping(path = "/{name}")
     public String deleteBrandByName(@PathVariable("name") String name) {
         boolean result = brandServices.deleteBrandByName(name);
-        if (!result) {
+        if (result) {
             return String.format("Brand %s was deleted", name);
         } else {
             return String.format("Brand %s was not found", name);
