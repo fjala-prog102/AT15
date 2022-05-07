@@ -11,11 +11,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.containsString;
 
-import java.sql.Date;
-
-import org.fjala.prog102.store.models.Discount;
-import org.fjala.prog102.store.services.DiscountServices;
-
 @SpringBootTest
 @AutoConfigureMockMvc
 public class DiscountControllerTest {
@@ -31,14 +26,6 @@ public class DiscountControllerTest {
 
     @Test
     public void itShouldGetAdiscountById() throws Exception {
-        // Discount discount = new Discount();
-        // discount.setPercentage(0.12);
-        // discount.setStartDate(new Date(1648785600000L));
-        // discount.setEndDate(new Date(1651464000000L));
-        // discount.setDescription("Summer discount");
-
-        // DiscountServices discountServices = new DiscountServices();
-        // discountServices.saveDiscount(discount);
         String stringBody = "{";
         stringBody += "\"percentage\":0.2,";
         stringBody += "\"startDate\":\"2022-03-31\",";
