@@ -6,10 +6,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.util.NestedServletException;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -60,5 +64,28 @@ public class DiscountControllerTest {
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk());
+    }
+
+    @Test
+    public void itShouldNotCreateADiscountWithId() throws Exception {
+        Exception exception = assertThrows(NestedServletException.class, () -> {
+            String stringBody = "{";
+            stringBody += "\"discountId\":1000,";
+            stringBody += "\"percentage\":0.2,";
+            stringBody += "\"startDate\":\"2022-03-31\",";
+            stringBody += "\"endDate\":\"2022-04-01\",";
+            stringBody += "\"description\":\"winter discount\"";
+            stringBody += "}";
+            this.mockMvc.perform(
+                post("/discounts")
+                .content(stringBody)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON));
+        });
+
+        String expectedMessage = "To create a new discount, you do not have to set an ID";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 }
