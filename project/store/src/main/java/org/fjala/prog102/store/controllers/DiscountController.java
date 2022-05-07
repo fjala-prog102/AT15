@@ -27,7 +27,7 @@ public class DiscountController {
     }
 
     @GetMapping(path = "/{discountId}")
-    public Optional<Discount> getById(@PathVariable("discountId") Long discountId) {
+    public Optional<Discount> getDiscountById(@PathVariable("discountId") Long discountId) {
         return discountServices.getById(discountId);
     }
 
