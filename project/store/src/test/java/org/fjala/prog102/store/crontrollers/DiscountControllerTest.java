@@ -1,18 +1,42 @@
 package org.fjala.prog102.store.crontrollers;
 
-import org.fjala.prog102.store.controllers.DiscountController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import static org.assertj.core.api.Assertions.assertThat;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 public class DiscountControllerTest {
     @Autowired
-    private DiscountController discountController;
+    private MockMvc mockMvc;
 
     @Test
-    public void itShouldListDiscounts() {
-        assertThat(discountController).isNotNull();
+    public void itShouldGetDiscounts() throws Exception {
+        this.mockMvc.perform(get("/discounts"))
+            .andDo(print())
+            .andExpect(status().isOk());
+    }
+
+    @Test
+    public void itShouldCreateADiscount() throws Exception {
+        String stringBody = "{";
+        stringBody += "\"percentage\":0.2,";
+        stringBody += "\"startDate\":\"2022-03-31\",";
+        stringBody += "\"endDate\":\"2022-04-01\",";
+        stringBody += "\"description\":\"winter discount\"";
+        stringBody += "}";
+
+        this.mockMvc.perform(
+            post("/discounts")
+            .content(stringBody)
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk());
     }
 }
