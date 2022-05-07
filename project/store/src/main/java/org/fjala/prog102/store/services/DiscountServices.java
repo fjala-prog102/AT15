@@ -42,7 +42,7 @@ public class DiscountServices {
         }
     }
 
-    public Optional<Discount> getById(Long id) {
+    public Optional<Discount> getDiscountById(Long id) {
         return discountRepository.findById(id);
     }
 }
