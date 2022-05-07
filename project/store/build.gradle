@@ -40,8 +40,6 @@ checkstyle {
 }
 
 jacocoTestReport {
-    dependsOn test // tests are required to run before generating the report
-
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
@@ -51,6 +49,17 @@ jacocoTestReport {
         }))
     }
 }
+
+checkstyleMain {
+    source = 'src/main/java'
+}
+
+checkstyleTest {
+    source = 'src/main/java'
+}
+
+test.finalizedBy("checkstyleMain")
+test.finalizedBy("jacocoTestReport")
 
 tasks.named('test') {
 	useJUnitPlatform()
