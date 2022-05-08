@@ -1,5 +1,6 @@
 package org.fjala.prog102.store.services;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -74,5 +75,56 @@ public class ProductServicesTest {
         productServices.saveProduct(product);
         Optional<Product> optional = productServices.getById(product.getProductId());
         assertNotNull(optional);
+    }
+
+    @Test
+    public void updateProductTest() {
+        Brand brand = new Brand();
+        brand.setName("Sony");
+        brandServices.saveBrand(brand);
+
+        Product product = new Product();
+        product.setActive(true);
+        product.setPrice(1);
+        product.setBrand(brand);
+        productServices.saveProduct(product);
+        product.setName("name");
+        Product updatedProduct = productServices.updateProduct(product);
+        assertNotNull(updatedProduct);
+        assertEquals("name", product.getName());
+    }
+
+    @Test
+    public void updateUnexistingProductTest() {
+        Brand brand = new Brand();
+        brand.setName("Sony");
+        brandServices.saveBrand(brand);
+        final long longId = 2789L;
+        try {
+            Product newProduct = new Product();
+            newProduct.setActive(true);
+            newProduct.setPrice(1);
+            newProduct.setBrand(brand);
+            newProduct.setProductId(longId);
+            productServices.updateProduct(newProduct);
+        } catch (RuntimeException myException) {
+            assertEquals("The providen Product does not exists", myException.getMessage());
+        }
+    }
+
+    @Test
+    public void deleteProductTest() {
+        Brand brand = new Brand();
+        brand.setName("Sony");
+        brandServices.saveBrand(brand);
+        final long longId = 27890L;
+
+        Product product = new Product();
+        product.setActive(true);
+        product.setPrice(1);
+        product.setBrand(brand);
+        productServices.saveProduct(product);
+        assertTrue(productServices.deleteProduct(product.getProductId()));
+        assertFalse(productServices.deleteProduct(longId));
     }
 }
