@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.containsString;
 
 import org.fjala.prog102.store.models.Brand;
 import org.fjala.prog102.store.models.Product;
@@ -72,7 +73,7 @@ public class ProductControllerTest {
 
         String updateBody = "{";
         updateBody += "\"productId\":" + product.getProductId() + ",";
-        updateBody += "\"name\":\"Agua\",";
+        updateBody += "\"name\":\"Agua Mineral\",";
         updateBody += "\"price\":6,";
         updateBody += "\"active\":true,";
         updateBody += "\"brand\": {";
@@ -86,5 +87,47 @@ public class ProductControllerTest {
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk());
+    }
+
+    @Test
+    public void itShouldGetAProductById() throws Exception {
+        Brand brand = new Brand();
+        brand.setName("Vital");
+        brandServices.saveBrand(brand);
+
+        Product product = new Product();
+        product.setName("Agua Mineral");
+        product.setActive(true);
+        product.setPrice(1);
+        product.setBrand(brand);
+        productServices.saveProduct(product);
+
+        this.mockMvc.perform(get("/products/" + product.getProductId()))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(content().string(containsString("Agua Mineral")));
+    }
+
+    @Test
+    public void itShouldDeleteAProductById() throws Exception {
+        this.mockMvc.perform(delete("/products/1000"))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(content().string(containsString("Product with id=1000 does not exist")));
+
+        Brand brand = new Brand();
+        brand.setName("Vital");
+        brandServices.saveBrand(brand);
+
+        Product product = new Product();
+        product.setName("Agua");
+        product.setActive(true);
+        product.setPrice(1);
+        product.setBrand(brand);
+        productServices.saveProduct(product);
+        this.mockMvc.perform(delete("/products/" + product.getProductId()))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(content().string(containsString("Product with id=" + product.getProductId() + " was deleted")));
     }
 }
