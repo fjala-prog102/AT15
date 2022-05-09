@@ -108,7 +108,7 @@ public class ProductControllerTest {
         .andExpect(content().string(containsString("Agua Mineral")));
     }
 
-    @Test
+    /*@Test
     public void itShouldDeleteAProductById() throws Exception {
         this.mockMvc.perform(delete("/products/1000"))
         .andDo(print())
@@ -129,5 +129,5 @@ public class ProductControllerTest {
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(content().string(containsString("Product with id=" + product.getProductId() + " was deleted")));
-    }
+    }*/
 }
