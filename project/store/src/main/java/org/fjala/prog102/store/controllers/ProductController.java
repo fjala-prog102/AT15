@@ -59,10 +59,5 @@ public class ProductController {
         } catch (ResourceNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
         }
-        /*if (result) {
-            return String.format("Product with id=%s was deleted", productId);
-        } else {
-            return String.format("Product with id=%s does not exist", productId);
-        }*/
     }
 }
