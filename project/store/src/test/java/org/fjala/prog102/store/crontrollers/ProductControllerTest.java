@@ -108,12 +108,11 @@ public class ProductControllerTest {
         .andExpect(content().string(containsString("Agua Mineral")));
     }
 
-    /*@Test
+    @Test
     public void itShouldDeleteAProductById() throws Exception {
         this.mockMvc.perform(delete("/products/1000"))
         .andDo(print())
-        .andExpect(status().isOk())
-        .andExpect(content().string(containsString("Product with id=1000 does not exist")));
+        .andExpect(status().isNotFound());
 
         Brand brand = new Brand();
         brand.setName("Vital");
@@ -127,7 +126,6 @@ public class ProductControllerTest {
         productServices.saveProduct(product);
         this.mockMvc.perform(delete("/products/" + product.getProductId()))
         .andDo(print())
-        .andExpect(status().isOk())
-        .andExpect(content().string(containsString("Product with id=" + product.getProductId() + " was deleted")));
-    }*/
+        .andExpect(status().is2xxSuccessful());
+    }
 }

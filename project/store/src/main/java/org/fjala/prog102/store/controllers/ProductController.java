@@ -3,7 +3,6 @@ package org.fjala.prog102.store.controllers;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.fjala.prog102.store.exception.ResourceNotFoundException;
@@ -52,8 +51,7 @@ public class ProductController {
 
     @DeleteMapping(path = "/{productId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteProduct(@NotBlank(message = "productId cannot be blank") @NotNull(message = "productId cannot be null")
-        @PathVariable("productId") Long productId) {
+    public void deleteProduct(@NotNull(message = "productId cannot be null") @PathVariable("productId") Long productId) {
         try {
             productServices.deleteProduct(productId);
         } catch (ResourceNotFoundException e) {

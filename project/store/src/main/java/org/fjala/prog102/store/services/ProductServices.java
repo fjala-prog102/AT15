@@ -42,7 +42,7 @@ public class ProductServices {
         try {
             productRepository.deleteById(productId);
         } catch (Exception e) {
-            throw new ResourceNotFoundException(String.format("The product with the providen id was not found"), e);
+            throw new ResourceNotFoundException("The product with the providen id was not found", e);
         }
     }
 }
