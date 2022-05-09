@@ -41,7 +41,8 @@ public class DiscountControllerTest {
             post("/discounts")
             .content(stringBody)
             .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON));
+            .accept(MediaType.APPLICATION_JSON)
+        );
 
         this.mockMvc.perform(get("/discounts/1"))
             .andDo(print())
@@ -63,7 +64,8 @@ public class DiscountControllerTest {
             .content(stringBody)
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk());
+            .andExpect(status().isOk()
+        );
     }
 
     @Test
@@ -80,12 +82,33 @@ public class DiscountControllerTest {
                 post("/discounts")
                 .content(stringBody)
                 .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON));
+                .accept(MediaType.APPLICATION_JSON)
+            );
         });
 
         String expectedMessage = "To create a new discount, you do not have to set an ID";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    public void itShouldUpdateADiscount() throws Exception {
+        String updateBody = "{";
+        updateBody += "\"discountId\":1,";
+        updateBody += "\"percentage\":0.2,";
+        updateBody += "\"startDate\":\"2022-03-31\",";
+        updateBody += "\"endDate\":\"2022-04-01\",";
+        updateBody += "\"description\":\"Summer discount\"";
+        updateBody += "}";
+
+        this.mockMvc.perform(
+            put("/discounts")
+            .content(updateBody)
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON)
+        )
+            .andDo(print())
+            .andExpect(status().isOk());
     }
 }
