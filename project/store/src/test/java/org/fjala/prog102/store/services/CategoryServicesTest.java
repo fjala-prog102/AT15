@@ -1,13 +1,10 @@
 package org.fjala.prog102.store.services;
 
-import org.fjala.prog102.store.models.Brand;
 import org.fjala.prog102.store.models.Category;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
