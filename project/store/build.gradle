@@ -44,7 +44,9 @@ jacocoTestReport {
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
                 "org/fjala/prog102/store/models/*.class",
-                "org/fjala/prog102/store/StoreApplication.class"
+                "org/fjala/prog102/store/StoreApplication.class",
+				"org/fjala/prog102/store/dto/*.class",
+				"org/fjala/prog102/store/exception/*.class"
             ])
         }))
     }
