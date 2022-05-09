@@ -5,11 +5,7 @@ import java.util.List;
 import org.fjala.prog102.store.models.Client;
 import org.fjala.prog102.store.services.ClientServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/clients")
@@ -25,5 +21,15 @@ public class ClientController {
     @PostMapping
     public Client saveClient(@RequestBody Client client) {
         return clientServices.saveClient(client);
+    }
+
+    @DeleteMapping(path = "/{identificationNumber}")
+    public String deleteClientById(@PathVariable("identificationNumber") Long identificationNumber) {
+        boolean result = clientServices.deleteClientById(identificationNumber);
+        if (!result) {
+            return String.format("Client %s was deleted", identificationNumber);
+        } else {
+            return String.format("Client %s was not found", identificationNumber);
+        }
     }
 }

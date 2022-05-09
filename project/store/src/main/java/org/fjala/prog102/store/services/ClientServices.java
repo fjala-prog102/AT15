@@ -19,4 +19,13 @@ public class ClientServices {
     public Client saveClient(Client client) {
         return clientRepository.save(client);
     }
+
+    public boolean deleteClientById(Long identificationNumber) {
+        try {
+            ClientRepository.deleteClientById(identificationNumber);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
