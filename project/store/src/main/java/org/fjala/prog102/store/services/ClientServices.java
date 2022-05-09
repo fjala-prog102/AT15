@@ -19,4 +19,12 @@ public class ClientServices {
     public Client saveClient(Client client) {
         return clientRepository.save(client);
     }
+
+    public void deleteClient(Client client) {
+        clientRepository.delete(client);
+    }
+
+    public Client findClient(Client client) {
+        return clientRepository.findById(client.getIdentificationNumber()).orElse(null);
+    }
 }
