@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class RestResponseDto<T> {
-
     @Getter
     @Setter
     @JsonInclude(Include.NON_NULL)
