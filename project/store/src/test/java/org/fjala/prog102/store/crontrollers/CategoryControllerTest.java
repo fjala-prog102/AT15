@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -54,8 +55,50 @@ public class CategoryControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(NUMBER_3)))
                 .andExpect(jsonPath("$[2].name").value("category3"));
+    }
+
+    @Test
+    public void deleteCategoriesByNameOk() throws Exception {
+        Category category1 = new Category();
+        category1.setName("category1");
+        category1.setDescription("description1");
+        Category category2 = new Category();
+        category2.setName("category2");
+        category2.setDescription("description2");
+        Category category3 = new Category();
+        category3.setName("category3");
+        category3.setDescription("description3");
+        List<Category> categories = new ArrayList<>(Arrays.asList(category1, category2, category3));
+
+//        given(categoryServices.getCategories()).willReturn(categories);
+
+
+        mockMvc.perform(delete("/categories/category2")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
 
     }
+
+//    @Test
+//    public void deleteCategoriesByNameNok() throws Exception {
+//        Category category1 = new Category();
+//        category1.setName("category1");
+//        category1.setDescription("description1");
+//        Category category2 = new Category();
+//        category2.setName("category2");
+//        category2.setDescription("description2");
+//        Category category3 = new Category();
+//        category3.setName("category3");
+//        category3.setDescription("description3");
+//        List<Category> categories = new ArrayList<>(Arrays.asList(category1, category2, category3));
+//
+//        given(categoryServices.getCategories()).willReturn(categories);
+//
+//
+//        mockMvc.perform(delete("/categories/category4")
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isNotFound());
+//    }
 
 }
 

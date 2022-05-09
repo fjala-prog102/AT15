@@ -41,7 +41,7 @@ public class CategoryController {
 
     @DeleteMapping(path = "/{name}")
     public String deleteCategory(@PathVariable("name") String name) {
-        boolean result = categoryServices.deleteCagetory(name);
+        boolean result = categoryServices.deleteCategory(name);
         if (result) {
             return String.format("Category name=%s was deleted", name);
         } else {
