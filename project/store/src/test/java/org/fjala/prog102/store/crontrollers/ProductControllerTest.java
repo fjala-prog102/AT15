@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.ArgumentMatchers.contains;
 
 import org.fjala.prog102.store.models.Brand;
 import org.fjala.prog102.store.models.Product;
@@ -112,7 +113,8 @@ public class ProductControllerTest {
     public void itShouldDeleteAProductById() throws Exception {
         this.mockMvc.perform(delete("/products/1000"))
         .andDo(print())
-        .andExpect(status().isNotFound());
+        .andExpect(status().isNotFound())
+        .andExpect(content().string(contains("The product with the providen id was not found")));
 
         Brand brand = new Brand();
         brand.setName("Vital");
