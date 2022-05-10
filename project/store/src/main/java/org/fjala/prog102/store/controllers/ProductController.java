@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.validation.constraints.NotNull;
 
+import org.fjala.prog102.store.dto.RestResponseDto;
 import org.fjala.prog102.store.exception.ResourceNotFoundException;
 import org.fjala.prog102.store.models.Product;
 import org.fjala.prog102.store.services.ProductServices;
@@ -30,23 +31,32 @@ public class ProductController {
     private ProductServices productServices;
 
     @GetMapping
-    public List<Product> getProducts() {
-        return productServices.getProducts();
+    public RestResponseDto<List<Product>> getProducts() {
+        RestResponseDto<List<Product>> response = new RestResponseDto<>();
+        response.setData(productServices.getProducts());
+        return response;
     }
 
     @GetMapping(path = "/{productId}")
-    public Optional<Product> getProductById(@PathVariable("productId") Long productId) {
-        return productServices.getById(productId);
+    public RestResponseDto<Optional<Product>> getProductById(@PathVariable("productId") Long productId) {
+        RestResponseDto<Optional<Product>> response = new RestResponseDto<>();
+        response.setData(productServices.getById(productId));
+        return response;
     }
 
     @PostMapping
-    public Product saveProduct(@RequestBody Product product) {
-        return productServices.saveProduct(product);
+    @ResponseStatus(HttpStatus.CREATED)
+    public RestResponseDto<Product> saveProduct(@RequestBody Product product) {
+        RestResponseDto<Product> response = new RestResponseDto<>();
+        response.setData(productServices.saveProduct(product));
+        return response;
     }
 
     @PutMapping
-    public Product updateProduct(@RequestBody Product product) {
-        return productServices.updateProduct(product);
+    public RestResponseDto<Product> updateProduct(@RequestBody Product product) {
+        RestResponseDto<Product> response = new RestResponseDto<>();
+        response.setData(productServices.updateProduct(product));
+        return response;
     }
 
     @DeleteMapping(path = "/{productId}")
