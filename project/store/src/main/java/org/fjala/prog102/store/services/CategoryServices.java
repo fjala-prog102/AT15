@@ -27,7 +27,7 @@ public class CategoryServices {
         return categoryRepository.findByName(name);
     }
 
-    public boolean deleteCagetory(String name) {
+    public boolean deleteCategory(String name) {
         try {
             categoryRepository.deleteById(name);
             return true;
