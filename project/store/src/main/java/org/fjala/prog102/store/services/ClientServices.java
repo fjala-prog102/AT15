@@ -2,6 +2,7 @@ package org.fjala.prog102.store.services;
 
 import java.util.List;
 
+import org.fjala.prog102.store.exception.ResourceNotFoundException;
 import org.fjala.prog102.store.models.Client;
 import org.fjala.prog102.store.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,19 @@ public class ClientServices {
         return clientRepository.save(client);
     }
 
-    public void deleteClient(Client client) {
-        clientRepository.delete(client);
+    public void deleteClientByIdentificationNumber(Client client) throws ResourceNotFoundException {
+        try {
+            clientRepository.delete(client);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException(String.format("Client %s was not found", client.getIdentificationNumber()), e);
+        }
     }
 
-    public Client findClient(Client client) {
-        return clientRepository.findById(client.getIdentificationNumber()).orElse(null);
+    public Client findClientByIdentificationNumber(Client client) throws ResourceNotFoundException {
+        try {
+            return clientRepository.findById(client.getIdentificationNumber()).orElse(null);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException(String.format("Client %s was not found", client.getIdentificationNumber()), e);
+        }
     }
 }
