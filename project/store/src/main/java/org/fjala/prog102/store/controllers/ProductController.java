@@ -38,7 +38,8 @@ public class ProductController {
     }
 
     @GetMapping(path = "/{productId}")
-    public RestResponseDto<Optional<Product>> getProductById(@PathVariable("productId") Long productId) {
+    public RestResponseDto<Optional<Product>> getProductById(@NotNull(message = "A product Id must be specified")
+        @PathVariable("productId") Long productId) {
         RestResponseDto<Optional<Product>> response = new RestResponseDto<>();
         response.setData(productServices.getById(productId));
         return response;
