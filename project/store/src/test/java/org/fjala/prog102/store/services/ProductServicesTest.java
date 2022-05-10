@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import java.util.Optional;
 
+import org.fjala.prog102.store.exception.ResourceNotFoundException;
 import org.fjala.prog102.store.models.Brand;
 import org.fjala.prog102.store.models.Product;
 import org.junit.jupiter.api.Test;
@@ -117,14 +118,19 @@ public class ProductServicesTest {
         Brand brand = new Brand();
         brand.setName("Sony");
         brandServices.saveBrand(brand);
-        final long longId = 27890L;
 
         Product product = new Product();
         product.setActive(true);
         product.setPrice(1);
         product.setBrand(brand);
         productServices.saveProduct(product);
-        assertTrue(productServices.deleteProduct(product.getProductId()));
-        assertFalse(productServices.deleteProduct(longId));
+        try {
+            productServices.deleteProduct(product.getProductId());
+            assertFalse(productServices.getById(product.getProductId()).isPresent());
+
+            productServices.deleteProduct(product.getProductId());
+        } catch (ResourceNotFoundException e) {
+            assertEquals("The product with the providen id was not found", e.getMessage());
+        }
     }
 }

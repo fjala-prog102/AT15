@@ -1,5 +1,6 @@
 package org.fjala.prog102.store.services;
 
+import org.fjala.prog102.store.exception.ResourceNotFoundException;
 import org.fjala.prog102.store.models.Product;
 import org.fjala.prog102.store.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +38,11 @@ public class ProductServices {
         }
     }
 
-    public boolean deleteProduct(Long productId) {
+    public void deleteProduct(Long productId) throws ResourceNotFoundException {
         try {
             productRepository.deleteById(productId);
-            return true;
         } catch (Exception e) {
-            return false;
+            throw new ResourceNotFoundException("The product with the providen id was not found", e);
         }
     }
 }

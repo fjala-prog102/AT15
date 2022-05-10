@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.ArgumentMatchers.contains;
 
 import org.fjala.prog102.store.models.Brand;
 import org.fjala.prog102.store.models.Product;
@@ -55,7 +56,7 @@ public class ProductControllerTest {
             .content(stringBody)
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk());
+            .andExpect(status().isCreated());
     }
 
     @Test
@@ -112,8 +113,8 @@ public class ProductControllerTest {
     public void itShouldDeleteAProductById() throws Exception {
         this.mockMvc.perform(delete("/products/1000"))
         .andDo(print())
-        .andExpect(status().isOk())
-        .andExpect(content().string(containsString("Product with id=1000 does not exist")));
+        .andExpect(status().isNotFound())
+        .andExpect(content().string(contains("The product with the providen id was not found")));
 
         Brand brand = new Brand();
         brand.setName("Vital");
@@ -127,7 +128,6 @@ public class ProductControllerTest {
         productServices.saveProduct(product);
         this.mockMvc.perform(delete("/products/" + product.getProductId()))
         .andDo(print())
-        .andExpect(status().isOk())
-        .andExpect(content().string(containsString("Product with id=" + product.getProductId() + " was deleted")));
+        .andExpect(status().is2xxSuccessful());
     }
 }
