@@ -1,8 +1,8 @@
-package org.fjala.prog102.designpatterns.behavioral.observer.listeners;
+package org.fjala.prog102.designpatterns.behavioral.observer.subscribers;
 
 import java.io.File;
 
-public class LogOpenListener implements EventListener {
+public class LogOpenListener implements Subscriber {
     private File log;
 
     public LogOpenListener(String fileName) {

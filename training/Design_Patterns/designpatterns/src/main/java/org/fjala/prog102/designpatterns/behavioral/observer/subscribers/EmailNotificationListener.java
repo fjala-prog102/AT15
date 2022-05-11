@@ -1,8 +1,8 @@
-package org.fjala.prog102.designpatterns.behavioral.observer.listeners;
+package org.fjala.prog102.designpatterns.behavioral.observer.subscribers;
 
 import java.io.File;
 
-public class EmailNotificationListener implements EventListener {
+public class EmailNotificationListener implements Subscriber {
     private String email;
 
     public EmailNotificationListener(String email) {

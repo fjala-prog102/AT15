@@ -1,8 +1,8 @@
 package org.fjala.prog102.designpatterns.behavioral.observer;
 
 import org.fjala.prog102.designpatterns.behavioral.observer.editor.Editor;
-import org.fjala.prog102.designpatterns.behavioral.observer.listeners.EmailNotificationListener;
-import org.fjala.prog102.designpatterns.behavioral.observer.listeners.LogOpenListener;
+import org.fjala.prog102.designpatterns.behavioral.observer.subscribers.EmailNotificationListener;
+import org.fjala.prog102.designpatterns.behavioral.observer.subscribers.LogOpenListener;
 
 public class Demo {
     public static void main(String[] args) {

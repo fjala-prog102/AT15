@@ -2,14 +2,14 @@ package org.fjala.prog102.designpatterns.behavioral.observer.editor;
 
 import java.io.File;
 
-import org.fjala.prog102.designpatterns.behavioral.observer.publisher.EventManager;
+import org.fjala.prog102.designpatterns.behavioral.observer.publisher.PublisherManager;
 
 public class Editor {
-    public EventManager events;
+    public PublisherManager events;
     private File file;
 
     public Editor() {
-        this.events = new EventManager("open", "save");
+        this.events = new PublisherManager("open", "save");
     }
 
     public void openFile(String filePath) {
