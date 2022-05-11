@@ -1,7 +1,7 @@
 package org.fjala.prog102.designpatterns.behavioral.TemplateMethod;
 
 public abstract class SandwichMaker {
-    public void makeSandwich() {
+    public void makeSandwich() {  //Template method 
         prepareIngredients();
         toastBread();
         prepareSandwich();
@@ -18,8 +18,8 @@ public abstract class SandwichMaker {
         System.out.println("2. Toast the bread for 2 minutes.");
     }
 
-    abstract void prepareSandwich();
-    abstract void addToppings();
+    abstract void prepareSandwich(); //Primitive operation 
+    abstract void addToppings(); //Primitive operation 
 
     final void heatInMicrowave() {
         System.out.println("5. Heat the sandwich in microwave.");
@@ -27,7 +27,7 @@ public abstract class SandwichMaker {
     final void packSandwich() {
         System.out.println("6. Packing sandwich for delivery.");
     }
-    boolean customerWantsPackedSandwich() {
+    boolean customerWantsPackedSandwich() { //Hook operation
         return true;
     }
 }
