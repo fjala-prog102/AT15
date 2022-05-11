@@ -1,6 +1,7 @@
 package org.fjala.prog102.store.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.fjala.prog102.store.exception.ResourceNotFoundException;
 import org.fjala.prog102.store.models.Client;
@@ -21,19 +22,19 @@ public class ClientServices {
         return clientRepository.save(client);
     }
 
-    public void deleteClientByIdentificationNumber(Client client) throws ResourceNotFoundException {
+    public void deleteClient(Long identificationNumber) throws ResourceNotFoundException {
         try {
-            clientRepository.delete(client);
+            clientRepository.deleteById(identificationNumber);
         } catch (Exception e) {
-            throw new ResourceNotFoundException(String.format("Client %s was not found", client.getIdentificationNumber()), e);
+            throw new ResourceNotFoundException("Client identificationNumber was not found", e);
         }
     }
 
-    public Client findClientByIdentificationNumber(Client client) throws ResourceNotFoundException {
+    public Optional<Client> findClient(Long identificationNumber) throws ResourceNotFoundException {
         try {
-            return clientRepository.findById(client.getIdentificationNumber()).orElse(null);
+            return clientRepository.findById(identificationNumber);
         } catch (Exception e) {
-            throw new ResourceNotFoundException(String.format("Client %s was not found", client.getIdentificationNumber()), e);
+            throw new ResourceNotFoundException("Client identificationNumber was not found", e);
         }
     }
 }

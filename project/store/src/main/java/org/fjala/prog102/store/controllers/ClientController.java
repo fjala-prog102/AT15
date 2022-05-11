@@ -1,8 +1,9 @@
 package org.fjala.prog102.store.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.fjala.prog102.store.dto.RestResponseDto;
 import org.fjala.prog102.store.exception.ResourceNotFoundException;
@@ -44,21 +45,23 @@ public class ClientController {
         return response;
     }
 
-    @DeleteMapping(path = "/delete/{identificationNumber}")
+    @DeleteMapping("/delete/{identificationNumber}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteClient(@NotBlank(message = "Client id cannot be empty") @PathVariable("identificationNumber") Client client) {
+    public void deleteClient(@NotNull(message = "Client id cannot be empty")
+                @PathVariable("identificationNumber") Long identificationNumber) {
         try {
-            clientServices.deleteClientByIdentificationNumber(client);
+            clientServices.deleteClient(identificationNumber);
         } catch (ResourceNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
         }
     }
 
     @GetMapping("/find/{identificationNumber}")
-    public RestResponseDto<Client> findClient(@PathVariable("identificationNumber") Client client) {
+    public RestResponseDto<Optional<Client>> findClient(@NotNull(message = "A client identificationNumber must be specified")
+                @PathVariable("identificationNumber") Long identificationNumber) {
         try {
-            RestResponseDto<Client> response = new RestResponseDto<>();
-            response.setData(clientServices.findClientByIdentificationNumber(client));
+            RestResponseDto<Optional<Client>> response = new RestResponseDto<>();
+            response.setData(clientServices.findClient(identificationNumber));
             return response;
         } catch (ResourceNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
