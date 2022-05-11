@@ -28,3 +28,8 @@ task runObserver (dependsOn: 'classes', type: JavaExec) {
     main = 'org.fjala.prog102.designpatterns.behavioral.observer.Demo'
     classpath = sourceSets.main.runtimeClasspath
 }
+
+task runTemplateMethod (dependsOn: 'classes', type: JavaExec) {
+    main = 'org.fjala.prog102.designpatterns.behavioral.TemplateMethod.Main'
+    classpath = sourceSets.main.runtimeClasspath
+}
