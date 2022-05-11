@@ -2,18 +2,18 @@ package org.fjala.prog102.designpatterns.behavioral.TemplateMethod;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("-----Making Veg Pizza-----");
-        PizzaMaker vegPizzaMaker = new VegPizzaMaker();
-        vegPizzaMaker.makePizza();
+        System.out.println("-----Making Veg Sandwich-----");
+        SandwichMaker vegSandwich = new VegSandwich();
+        vegSandwich.makeSandwich();
         System.out.println();
 
-        System.out.println("-----Making Non Veg Pizza-----");
-        PizzaMaker nonVegPizzaMaker = new NonVegPizzaMaker();
-        nonVegPizzaMaker.makePizza();
+        System.out.println("-----Making Non Veg Sandwich-----");
+        SandwichMaker nonVegSandwich = new NonVegSandwich();
+        nonVegSandwich.makeSandwich();
         System.out.println();
 
-        System.out.println("-----Making In-House Assorted Pizza-----");
-        PizzaMaker inHousePizza = new InHouseAssortedPizzaMaker();
-        inHousePizza.makePizza();
+        System.out.println("-----Making Homemade Sandwich-----");
+        SandwichMaker homemadeSandwich = new HomemadeSandwich();
+        homemadeSandwich.makeSandwich();
     }
 }
