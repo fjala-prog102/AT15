@@ -1,3 +1,5 @@
+package org.fjala.prog102.designpatterns.creational.factoryMethod;
+
 public abstract class Restaurant {
 
     public Burger orderBurger() {

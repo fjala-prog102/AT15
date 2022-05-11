@@ -1,3 +1,5 @@
+package org.fjala.prog102.designpatterns.creational.factoryMethod;
+
 public class VeggieBurgerRestaurant extends Restaurant {
 
     @Override
