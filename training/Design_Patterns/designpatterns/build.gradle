@@ -23,3 +23,8 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+task runObserver (dependsOn: 'classes', type: JavaExec) {
+    main = 'org.fjala.prog102.designpatterns.behavioral.observer.Demo'
+    classpath = sourceSets.main.runtimeClasspath
+}
