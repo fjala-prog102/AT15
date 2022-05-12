@@ -49,8 +49,12 @@ public class DiscountController {
     }
 
     @PutMapping
-    public Discount updateDiscount(@RequestBody Discount discount) {
-        return discountServices.updateDiscount(discount);
+    public RestResponseDto<Discount> updateDiscount(@RequestBody Discount discount) {
+        RestResponseDto<Discount> response = new RestResponseDto<>();
+        response.setData(discountServices.updateDiscount(discount));
+        response.setErrors(new ArrayList<String>());
+        response.getErrors().add("Test");
+        return response;
     }
 
     @DeleteMapping(path = "/{discountId}")
