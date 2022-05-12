@@ -1,7 +1,6 @@
 package org.fjala.prog102.store.services;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -81,13 +80,11 @@ public class DiscountServicesTest {
 
     @Test
     public void deleteDiscountFailTest() throws ResourceNotFoundException {
-        Discount discount = new Discount();
-        discount.setDiscountId(100L);
-        discount.setPercentage(0.1);
-        discount.setStartDate(new Date(1652304263));
-        discount.setEndDate(new Date(1652304264));
-        discount.setDescription("description");
-        discountServices.deleteDiscount(discount.getDiscountId());
-        assertNotNull(discount);
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
+            discountServices.deleteDiscount(123L);
+        });
+        String expectedMessage = "The discount with the given id was not found";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 }
