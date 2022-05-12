@@ -1,0 +1,36 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.7'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'org.fjala.prog102'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'javax.mail:mail:1.5.0-b01'
+	implementation 'info.picocli:picocli:4.6.3'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+task runObserver (dependsOn: 'classes', type: JavaExec) {
+    main = 'org.fjala.prog102.designpatterns.behavioral.observer.Demo'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task runTemplateMethod (dependsOn: 'classes', type: JavaExec) {
+    main = 'org.fjala.prog102.designpatterns.behavioral.TemplateMethod.Main'
+    classpath = sourceSets.main.runtimeClasspath
+}
