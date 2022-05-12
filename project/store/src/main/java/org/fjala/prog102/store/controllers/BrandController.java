@@ -1,6 +1,7 @@
 package org.fjala.prog102.store.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.constraints.NotBlank;
 
@@ -43,11 +44,10 @@ public class BrandController {
         return response;
     }
 
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @GetMapping(path = "/{name}")
-    public RestResponseDto<Brand> findBrandByName(@PathVariable("name") String name) {
-        RestResponseDto<Brand> response = new RestResponseDto<>();
-        response.setData(brandServices.findBrandByName(name));
-        return response;
+    public Optional<Brand> findByName(@PathVariable("name") String name) {
+        return brandServices.findBrandByName(name);
     }
 
     @DeleteMapping(path = "/{name}")
