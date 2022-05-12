@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 // import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -51,5 +52,35 @@ public class BrandControllerTest {
             .andExpect(status().isCreated());
     }
 
+    @Test
+    public void itShouldGetABrandByName() throws Exception {
+        Brand brand = new Brand();
+        brand.setName( "Samsung");
+        brand.setDescription("Electronic Products");
+        brand.setWebsite("www.samsung.com");
+        brandServices.saveBrand(brand);
 
+        this.mockMvc.perform(get("/brands/Samsung"))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("samsung.com")));
+    }
+
+    @Test
+    public void itShouldDeleteABrand() throws Exception {
+        Brand brand = new Brand();
+        brand.setName( "Samsung");
+        brand.setDescription("Electronic Products");
+        brand.setWebsite("www.samsung.com");
+        brandServices.saveBrand(brand);
+
+        this.mockMvc.perform(delete("/brands/" + brand.getName()))
+        .andExpect(status().is2xxSuccessful());
+    }
+
+    @Test
+    public void itShouldNotDeleteAnNonExistentBrand() throws Exception {
+        this.mockMvc.perform(delete("/brands/sony"))
+        .andExpect(status().isNotFound());
+    }
 }

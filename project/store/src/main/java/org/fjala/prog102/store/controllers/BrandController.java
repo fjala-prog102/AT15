@@ -44,7 +44,6 @@ public class BrandController {
         return response;
     }
 
-    @ResponseStatus(HttpStatus.NOT_FOUND)
     @GetMapping(path = "/{name}")
     public Optional<Brand> findByName(@PathVariable("name") String name) {
         return brandServices.findBrandByName(name);
