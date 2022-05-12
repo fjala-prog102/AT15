@@ -32,8 +32,10 @@ public class DiscountController {
     }
 
     @GetMapping(path = "/{discountId}")
-    public Optional<Discount> getDiscountById(@PathVariable("discountId") Long discountId) {
-        return discountServices.getDiscountById(discountId);
+    public RestResponseDto<Optional<Discount>> getDiscountById(@PathVariable("discountId") Long discountId) {
+        RestResponseDto<Optional<Discount>> response = new RestResponseDto<>();
+        response.setData(discountServices.getDiscountById(discountId));
+        return response;
     }
 
     @PostMapping
