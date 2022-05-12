@@ -41,7 +41,11 @@ public class ProductController {
     public RestResponseDto<Optional<Product>> getProductById(@NotNull(message = "A product Id must be specified")
         @PathVariable("productId") Long productId) {
         RestResponseDto<Optional<Product>> response = new RestResponseDto<>();
-        response.setData(productServices.getById(productId));
+        try {
+            response.setData(productServices.getById(productId));
+        } catch (ResourceNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+        }
         return response;
     }
 
@@ -49,14 +53,22 @@ public class ProductController {
     @ResponseStatus(HttpStatus.CREATED)
     public RestResponseDto<Product> saveProduct(@RequestBody Product product) {
         RestResponseDto<Product> response = new RestResponseDto<>();
-        response.setData(productServices.saveProduct(product));
+        try {
+            response.setData(productServices.saveProduct(product));
+        } catch (ResourceNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+        }
         return response;
     }
 
     @PutMapping
     public RestResponseDto<Product> updateProduct(@RequestBody Product product) {
         RestResponseDto<Product> response = new RestResponseDto<>();
-        response.setData(productServices.updateProduct(product));
+        try {
+            response.setData(productServices.updateProduct(product));
+        } catch (ResourceNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+        }
         return response;
     }
 

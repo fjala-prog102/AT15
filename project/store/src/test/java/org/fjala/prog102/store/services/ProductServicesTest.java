@@ -1,6 +1,5 @@
 package org.fjala.prog102.store.services;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -30,7 +29,7 @@ public class ProductServicesTest {
     }
 
     @Test
-    public void saveProductTest() {
+    public void saveProductTest() throws ResourceNotFoundException {
         Brand brand = new Brand();
         brand.setName("Sony");
         brandServices.saveBrand(brand);
@@ -58,13 +57,13 @@ public class ProductServicesTest {
             product.setPrice(1);
             product.setBrand(brand);
             productServices.saveProduct(product);
-        } catch (RuntimeException myrRuntimeException) {
+        } catch (ResourceNotFoundException myrRuntimeException) {
             assertEquals(expectedMessage, myrRuntimeException.getMessage());
         }
     }
 
     @Test
-    public void getProductByIdTest() {
+    public void getProductByIdTest() throws ResourceNotFoundException {
         Brand brand = new Brand();
         brand.setName("Sony");
         brandServices.saveBrand(brand);
@@ -79,7 +78,17 @@ public class ProductServicesTest {
     }
 
     @Test
-    public void updateProductTest() {
+    public void getProductByUnexistingIdTest() throws ResourceNotFoundException {
+        final long unexistingId = 46L;
+        try {
+            productServices.getById(unexistingId);
+        } catch (ResourceNotFoundException e) {
+            assertEquals("The Product with the providen ID does not exists", e.getMessage());
+        }
+    }
+
+    @Test
+    public void updateProductTest() throws ResourceNotFoundException {
         Brand brand = new Brand();
         brand.setName("Sony");
         brandServices.saveBrand(brand);
@@ -96,7 +105,7 @@ public class ProductServicesTest {
     }
 
     @Test
-    public void updateUnexistingProductTest() {
+    public void updateUnexistingProductTest() throws ResourceNotFoundException {
         Brand brand = new Brand();
         brand.setName("Sony");
         brandServices.saveBrand(brand);
@@ -108,13 +117,13 @@ public class ProductServicesTest {
             newProduct.setBrand(brand);
             newProduct.setProductId(longId);
             productServices.updateProduct(newProduct);
-        } catch (RuntimeException myException) {
+        } catch (ResourceNotFoundException myException) {
             assertEquals("The providen Product does not exists", myException.getMessage());
         }
     }
 
     @Test
-    public void deleteProductTest() {
+    public void deleteProductTest() throws ResourceNotFoundException {
         Brand brand = new Brand();
         brand.setName("Sony");
         brandServices.saveBrand(brand);
@@ -126,7 +135,6 @@ public class ProductServicesTest {
         productServices.saveProduct(product);
         try {
             productServices.deleteProduct(product.getProductId());
-            assertFalse(productServices.getById(product.getProductId()).isPresent());
 
             productServices.deleteProduct(product.getProductId());
         } catch (ResourceNotFoundException e) {
