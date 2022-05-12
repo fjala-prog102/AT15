@@ -1,6 +1,9 @@
 package org.fjala.prog102.store.controllers;
 
 import java.util.List;
+import java.util.Optional;
+
+import org.fjala.prog102.store.exception.ResourceNotFoundException;
 import org.fjala.prog102.store.models.Category;
 import org.fjala.prog102.store.services.CategoryServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +33,12 @@ public class CategoryController {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @GetMapping(path = "/{name}")
-    public List<Category> findByName(@PathVariable("name") String name) {
+    public Optional<Category> findByName(@PathVariable("name") String name) {
         return categoryServices.findByName(name);
     }
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping(path = "/{name}")
-    public String deleteCategory(@PathVariable("name") String name) {
+    public String deleteCategory(@PathVariable("name") String name) throws ResourceNotFoundException {
         boolean result = categoryServices.deleteCategory(name);
         if (result) {
             return String.format("Category name=%s was deleted", name);
