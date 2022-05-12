@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.List;
 
@@ -58,14 +59,21 @@ public class BrandServicesTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
-    //@Test
-    // public void deleteBrandTest() throws Exception{
-    //     Brand brand = new Brand();
-    //     brand.setName("Apple");
-    //     brandServices.saveBrand(brand);
-    //     brand.setWebsite("www.google.com");
-    //     brandServices.deleteBrandByName(brand.getName());
-    //     assertEquals("www.google.com", brand.getWebsite());
-    // }
+    @Test
+    public void deleteBrandTest() {
+
+        Brand brand = new Brand();
+        brand.setName("computers");
+        brand.setDescription("yadayadayada");
+        brandServices.saveBrand(brand);
+        try {
+            brandServices.deleteBrandByName(brand.getName());
+            assertFalse(brandServices.findBrandByName(brand.getName()).isPresent());
+
+            brandServices.deleteBrandByName(brand.getName());
+        } catch (ResourceNotFoundException e) {
+            assertEquals("computers",brand.getName(), e.getMessage());
+        }
+    }
 
 }

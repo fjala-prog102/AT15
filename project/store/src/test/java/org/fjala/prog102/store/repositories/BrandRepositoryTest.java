@@ -13,9 +13,9 @@ public class BrandRepositoryTest {
     @Autowired
     private BrandRepository brandRepository;
 
-    @Test
-    public void findBrandByNameTest() {
-        Brand brand = brandRepository.findBrandByName("Unexisting brand name");
-        assertNull(brand);
-    }
+    //@Test
+    // public void findBrandByNameTest() {
+    //     Brand brand = brandRepository.findBrandByName("Unexisting brand name");
+    //     assertNull(brand);
+    // }
 }

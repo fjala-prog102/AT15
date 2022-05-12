@@ -1,6 +1,7 @@
 package org.fjala.prog102.store.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.fjala.prog102.store.exception.ResourceNotFoundException;
 import org.fjala.prog102.store.models.Brand;
@@ -21,7 +22,7 @@ public class BrandServices {
         return brandRepository.saveAndFlush(brand);
     }
 
-    public Brand findBrandByName(String name) {
+    public Optional<Brand> findBrandByName(String name) {
         return brandRepository.findBrandByName(name);
     }
 
