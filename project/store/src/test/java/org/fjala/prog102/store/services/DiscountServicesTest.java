@@ -81,13 +81,7 @@ public class DiscountServicesTest {
     @Test
     public void deleteDiscountFailTest() throws ResourceNotFoundException {
         Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
-            Discount discount = new Discount();
-            discount.setDiscountId(100L);
-            discount.setPercentage(0.1);
-            discount.setStartDate(new Date(1652304263));
-            discount.setEndDate(new Date(1652304264));
-            discount.setDescription("description");
-            discountServices.deleteDiscount(discount.getDiscountId());
+            discountServices.deleteDiscount(123L);
         });
         String expectedMessage = "The discount with the given id was not found";
         String actualMessage = exception.getMessage();
