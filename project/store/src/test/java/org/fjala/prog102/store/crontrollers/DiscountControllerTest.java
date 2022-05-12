@@ -64,7 +64,7 @@ public class DiscountControllerTest {
             .content(stringBody)
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk()
+            .andExpect(status().isCreated()
         );
     }
 

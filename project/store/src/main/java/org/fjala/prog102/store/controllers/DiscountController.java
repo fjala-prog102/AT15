@@ -7,6 +7,7 @@ import org.fjala.prog102.store.dto.RestResponseDto;
 import org.fjala.prog102.store.models.Discount;
 import org.fjala.prog102.store.services.DiscountServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -39,8 +41,11 @@ public class DiscountController {
     }
 
     @PostMapping
-    public Discount saveDiscount(@RequestBody Discount discount) {
-        return discountServices.saveDiscount(discount);
+    @ResponseStatus(HttpStatus.CREATED)
+    public RestResponseDto<Discount> saveDiscount(@RequestBody Discount discount) {
+        RestResponseDto<Discount> response = new RestResponseDto<>();
+        response.setData(discountServices.saveDiscount(discount));
+        return response;
     }
 
     @PutMapping
