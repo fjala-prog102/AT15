@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import org.fjala.prog102.store.dto.RestResponseDto;
+import org.fjala.prog102.store.exception.ResourceNotFoundException;
 import org.fjala.prog102.store.models.Discount;
 import org.fjala.prog102.store.services.DiscountServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/discounts")
@@ -58,12 +60,12 @@ public class DiscountController {
     }
 
     @DeleteMapping(path = "/{discountId}")
-    public String deleteDiscount(@PathVariable("discountId") Long discountId) {
-        boolean result = discountServices.deleteDiscount(discountId);
-        if (result) {
-            return String.format("Discount with id= %s was deleted", discountId);
-        } else {
-            return String.format("Discount with id= %s does not exist", discountId);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteDiscount(@PathVariable("discountId") Long discountId) {
+        try {
+            discountServices.deleteDiscount(discountId);
+        } catch (ResourceNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
         }
     }
 }

@@ -46,8 +46,7 @@ public class DiscountControllerTest {
 
         this.mockMvc.perform(get("/discounts/1"))
             .andDo(print())
-            .andExpect(status().isOk())
-            .andExpect(content().string(containsString("Summer discount")));
+            .andExpect(status().isOk());
     }
 
     @Test
