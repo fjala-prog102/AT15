@@ -3,9 +3,11 @@ package org.fjala.prog102.store.controllers;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import org.fjala.prog102.store.dto.RestResponseDto;
 import org.fjala.prog102.store.models.Discount;
 import org.fjala.prog102.store.services.DiscountServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,13 +19,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/discounts")
+@Validated
 public class DiscountController {
     @Autowired
     private DiscountServices discountServices;
 
     @GetMapping
-    public ArrayList<Discount> getDiscounts() {
-        return discountServices.getDiscounts();
+    public RestResponseDto<ArrayList<Discount>> getDiscounts() {
+        RestResponseDto<ArrayList<Discount>> response = new RestResponseDto<>();
+        response.setData(discountServices.getDiscounts());
+        return response;
     }
 
     @GetMapping(path = "/{discountId}")
