@@ -49,14 +49,22 @@ public class ProductController {
     @ResponseStatus(HttpStatus.CREATED)
     public RestResponseDto<Product> saveProduct(@RequestBody Product product) {
         RestResponseDto<Product> response = new RestResponseDto<>();
-        response.setData(productServices.saveProduct(product));
+        try {
+            response.setData(productServices.saveProduct(product));
+        } catch (ResourceNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+        }
         return response;
     }
 
     @PutMapping
     public RestResponseDto<Product> updateProduct(@RequestBody Product product) {
         RestResponseDto<Product> response = new RestResponseDto<>();
-        response.setData(productServices.updateProduct(product));
+        try {
+            response.setData(productServices.updateProduct(product));
+        } catch (ResourceNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+        }
         return response;
     }
 

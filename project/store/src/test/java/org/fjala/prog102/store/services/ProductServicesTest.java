@@ -30,7 +30,7 @@ public class ProductServicesTest {
     }
 
     @Test
-    public void saveProductTest() {
+    public void saveProductTest() throws ResourceNotFoundException {
         Brand brand = new Brand();
         brand.setName("Sony");
         brandServices.saveBrand(brand);
@@ -58,13 +58,13 @@ public class ProductServicesTest {
             product.setPrice(1);
             product.setBrand(brand);
             productServices.saveProduct(product);
-        } catch (RuntimeException myrRuntimeException) {
+        } catch (ResourceNotFoundException myrRuntimeException) {
             assertEquals(expectedMessage, myrRuntimeException.getMessage());
         }
     }
 
     @Test
-    public void getProductByIdTest() {
+    public void getProductByIdTest() throws ResourceNotFoundException {
         Brand brand = new Brand();
         brand.setName("Sony");
         brandServices.saveBrand(brand);
@@ -79,7 +79,7 @@ public class ProductServicesTest {
     }
 
     @Test
-    public void updateProductTest() {
+    public void updateProductTest() throws ResourceNotFoundException {
         Brand brand = new Brand();
         brand.setName("Sony");
         brandServices.saveBrand(brand);
@@ -96,7 +96,7 @@ public class ProductServicesTest {
     }
 
     @Test
-    public void updateUnexistingProductTest() {
+    public void updateUnexistingProductTest() throws ResourceNotFoundException {
         Brand brand = new Brand();
         brand.setName("Sony");
         brandServices.saveBrand(brand);
@@ -108,13 +108,13 @@ public class ProductServicesTest {
             newProduct.setBrand(brand);
             newProduct.setProductId(longId);
             productServices.updateProduct(newProduct);
-        } catch (RuntimeException myException) {
+        } catch (ResourceNotFoundException myException) {
             assertEquals("The providen Product does not exists", myException.getMessage());
         }
     }
 
     @Test
-    public void deleteProductTest() {
+    public void deleteProductTest() throws ResourceNotFoundException {
         Brand brand = new Brand();
         brand.setName("Sony");
         brandServices.saveBrand(brand);

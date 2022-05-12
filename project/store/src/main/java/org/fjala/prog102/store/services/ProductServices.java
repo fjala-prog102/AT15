@@ -22,19 +22,19 @@ public class ProductServices {
         return productRepository.findById(productId);
     }
 
-    public Product saveProduct(Product product) {
+    public Product saveProduct(Product product) throws ResourceNotFoundException {
         if (product.getProductId() == null) {
             return productRepository.saveAndFlush(product);
         } else {
-            throw new RuntimeException("To create a new product, you do not have to set an ID");
+            throw new ResourceNotFoundException("To create a new product, you do not have to set an ID");
         }
     }
 
-    public Product updateProduct(Product product) {
+    public Product updateProduct(Product product) throws ResourceNotFoundException {
         if (productRepository.existsById(product.getProductId())) {
             return productRepository.saveAndFlush(product);
         } else {
-            throw new RuntimeException("The providen Product does not exists");
+            throw new ResourceNotFoundException("The providen Product does not exists");
         }
     }
 

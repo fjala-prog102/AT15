@@ -59,6 +59,25 @@ public class ProductControllerTest {
             .andExpect(status().isCreated());
     }
 
+    @Test void itShouldNotCreateAProductWithGivenId() throws Exception {
+        String stringBody = "{";
+        stringBody += "\"productId\":789,";
+        stringBody += "\"name\":\"Agua\",";
+        stringBody += "\"price\":6,";
+        stringBody += "\"active\":true,";
+        stringBody += "\"brand\": {";
+        stringBody += "\"name\":\"Vital\"";
+        stringBody += "}";
+        stringBody += "}";
+        this.mockMvc.perform(
+            post("/products")
+            .content(stringBody)
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string(contains("To create a new product, you do not have to set an ID")));
+    }
+
     @Test
     public void itShouldUpdateAProduct() throws Exception {
         Brand brand = new Brand();
@@ -88,6 +107,27 @@ public class ProductControllerTest {
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk());
+    }
+
+    @Test
+    public void itShouldNotUpdateAProductWithUnexistingId() throws Exception{
+        String updateBody = "{";
+        updateBody += "\"productId\":88,";
+        updateBody += "\"name\":\"Agua Mineral\",";
+        updateBody += "\"price\":6,";
+        updateBody += "\"active\":true,";
+        updateBody += "\"brand\": {";
+        updateBody += "\"name\":\"Vital\"";
+        updateBody += "}";
+        updateBody += "}";
+
+        this.mockMvc.perform(
+            put("/products")
+            .content(updateBody)
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string(contains("The providen Product does not exists")));
     }
 
     @Test
