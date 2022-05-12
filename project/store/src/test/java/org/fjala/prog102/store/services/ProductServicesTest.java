@@ -79,6 +79,16 @@ public class ProductServicesTest {
     }
 
     @Test
+    public void getProductByUnexistingIdTest() throws ResourceNotFoundException {
+        final long unexistingId = 46L;
+        try {
+            productServices.getById(unexistingId);
+        } catch (ResourceNotFoundException e) {
+            assertEquals("The Product with the providen ID does not exists", e.getMessage());
+        }
+    }
+
+    @Test
     public void updateProductTest() throws ResourceNotFoundException {
         Brand brand = new Brand();
         brand.setName("Sony");
@@ -126,7 +136,6 @@ public class ProductServicesTest {
         productServices.saveProduct(product);
         try {
             productServices.deleteProduct(product.getProductId());
-            assertFalse(productServices.getById(product.getProductId()).isPresent());
 
             productServices.deleteProduct(product.getProductId());
         } catch (ResourceNotFoundException e) {

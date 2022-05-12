@@ -150,6 +150,15 @@ public class ProductControllerTest {
     }
 
     @Test
+    public void itShouldNotGetAProductWithUnexistingId() throws Exception {
+        final long unexistingId = 46L;
+        this.mockMvc.perform(get("/products/" + unexistingId))
+        .andDo(print())
+        .andExpect(status().isNotFound())
+        .andExpect(content().string(contains("The Product with the providen ID does not exists")));
+    }
+
+    @Test
     public void itShouldDeleteAProductById() throws Exception {
         this.mockMvc.perform(delete("/products/1000"))
         .andDo(print())

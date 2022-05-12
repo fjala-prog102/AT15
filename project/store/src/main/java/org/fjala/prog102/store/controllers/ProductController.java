@@ -41,7 +41,11 @@ public class ProductController {
     public RestResponseDto<Optional<Product>> getProductById(@NotNull(message = "A product Id must be specified")
         @PathVariable("productId") Long productId) {
         RestResponseDto<Optional<Product>> response = new RestResponseDto<>();
-        response.setData(productServices.getById(productId));
+        try {
+            response.setData(productServices.getById(productId));
+        } catch (ResourceNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+        }
         return response;
     }
 

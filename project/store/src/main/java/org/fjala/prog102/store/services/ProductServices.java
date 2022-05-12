@@ -18,8 +18,13 @@ public class ProductServices {
         return (List<Product>) productRepository.findAll();
     }
 
-    public Optional<Product> getById(Long productId) {
-        return productRepository.findById(productId);
+    public Optional<Product> getById(Long productId) throws ResourceNotFoundException {
+        if (productRepository.existsById(productId)) {
+            return productRepository.findById(productId);
+        } else {
+            throw new ResourceNotFoundException("The Product with the providen ID does not exists");
+        }
+
     }
 
     public Product saveProduct(Product product) throws ResourceNotFoundException {
