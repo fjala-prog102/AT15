@@ -32,4 +32,12 @@ public class BrandServices {
             throw new ResourceNotFoundException(String.format("Brand %s was not found", name), e);
         }
     }
+
+    public Brand updateBrand(Brand brand) {
+        if (brandRepository.existsById(brand.getName())) {
+            return brandRepository.saveAndFlush(brand);
+        } else {
+            throw new RuntimeException("The providen Brand name does not exist.");
+        }
+    }
 }
