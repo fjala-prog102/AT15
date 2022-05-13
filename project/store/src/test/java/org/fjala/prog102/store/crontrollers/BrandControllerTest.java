@@ -79,7 +79,7 @@ public class BrandControllerTest {
     }
 
     @Test
-    public void itShouldNotDeleteAnNonExistentBrand() throws Exception {
+    public void itShouldNotDeleteANonExistentBrand() throws Exception {
         this.mockMvc.perform(delete("/brands/sony"))
         .andExpect(status().isNotFound());
     }
@@ -105,5 +105,22 @@ public class BrandControllerTest {
             .accept(MediaType.APPLICATION_JSON))
             .andDo(print())
             .andExpect(status().isOk());
+    }
+
+    @Test
+    public void itShouldNotUpdateANonExistentBrand() throws Exception {
+        String stringBody = "{";
+        stringBody += "\"name\":\"HP\",";
+        stringBody += "\"description\":\"Computers\",";
+        stringBody += "\"website\":\"www.hp.com\"";
+        stringBody += "}";
+
+        this.mockMvc.perform(
+            put("/brands")
+            .content(stringBody)
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON))
+            .andDo(print())
+            .andExpect(status().isNotFound());
     }
 }
