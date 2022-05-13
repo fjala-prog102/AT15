@@ -30,7 +30,7 @@ public class BrandServices {
         try {
             brandRepository.deleteById(name);
         } catch (Exception e) {
-            throw new ResourceNotFoundException(String.format("Brand %s was not found", name), e);
+            throw new ResourceNotFoundException(String.format("Brand '%s' was not found", name), e);
         }
     }
 
