@@ -84,4 +84,61 @@ public class ClientControllerTest {
         mockMvc.perform(get("/clients/find/" + client.getIdentificationNumber()))
                 .andExpect(status().is2xxSuccessful());
     }
+
+    @Test
+    public void itShouldUpdateAClient() throws Exception {
+        Client client = new Client();
+        client.setIdentificationNumber(123L);
+        client.setFirstName("juan");
+        client.setLastName("perez");
+        client.setAddress("jala");
+        clientServices.saveClient(client);
+
+        String updateBody = "{";
+        updateBody += "\"identificationNumber\":" + client.getIdentificationNumber() + ",";
+        updateBody += "\"firstName\":\"juancho\",";
+        updateBody += "\"lastName\":\"perez\",";
+        updateBody += "\"address\":\"jala\"";
+        updateBody += "}";
+
+        this.mockMvc.perform(
+            put("/clients/find/" + client.getIdentificationNumber())
+            .content(updateBody)
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk());
+    }
+
+    @Test
+    public void itShouldNotUpdateAClienttWithUnexistingId() throws Exception{
+        String updateBody = "{";
+        updateBody += "\"identificationNumber\":123,";
+        updateBody += "\"firstName\":\"juancho\",";
+        updateBody += "\"lastName\":\"perez\",";
+        updateBody += "\"address\":\"jala\"";
+        updateBody += "}";
+
+        this.mockMvc.perform(
+            put("/clients/find/123")
+            .content(updateBody)
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string(contains("The provided Client doesn't exist")));
+    }
+
+    @Test void itShouldNotCreateAClientWithGivenId() throws Exception {
+        String stringBody = "{";
+        stringBody += "\"firstName\":\"juancho\",";
+        stringBody += "\"lastName\":\"perez\",";
+        stringBody += "\"address\":\"jala\"";
+        stringBody += "}";
+        this.mockMvc.perform(
+            post("/clients")
+            .content(stringBody)
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string(contains("A new client needs to have an identificationNumber")));
+    }
 }
