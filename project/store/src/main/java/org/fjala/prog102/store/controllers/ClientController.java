@@ -41,7 +41,11 @@ public class ClientController {
     @ResponseStatus(HttpStatus.CREATED)
     public RestResponseDto<Client> saveClient(@RequestBody Client client) {
         RestResponseDto<Client> response = new RestResponseDto<>();
-        response.setData(clientServices.saveClient(client));
+        try {
+            response.setData(clientServices.saveClient(client));
+        } catch (ResourceNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+        }
         return response;
     }
 
@@ -59,20 +63,23 @@ public class ClientController {
     @GetMapping("/find/{identificationNumber}")
     public RestResponseDto<Optional<Client>> findClient(@NotNull(message = "A client identificationNumber must be specified")
                 @PathVariable("identificationNumber") Long identificationNumber) {
+        RestResponseDto<Optional<Client>> response = new RestResponseDto<>();
         try {
-            RestResponseDto<Optional<Client>> response = new RestResponseDto<>();
             response.setData(clientServices.findClient(identificationNumber));
-            return response;
         } catch (ResourceNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
         }
+        return response;
     }
 
     @PutMapping("/find/{identificationNumber}")
-    @ResponseStatus(HttpStatus.CREATED)
     public RestResponseDto<Client> updateClient(@RequestBody Client client) {
         RestResponseDto<Client> response = new RestResponseDto<>();
-        response.setData(clientServices.saveClient(client));
+        try {
+            response.setData(clientServices.updateClient(client));
+        } catch (ResourceNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+        }
         return response;
     }
 }
