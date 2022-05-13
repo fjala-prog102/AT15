@@ -1,7 +1,6 @@
 package org.fjala.prog102.store.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.fjala.prog102.store.exception.ResourceNotFoundException;
 import org.fjala.prog102.store.models.Category;
@@ -20,8 +19,9 @@ public class CategoryController {
     public List<Category> getCategories() {
         return categoryServices.getCategories();
     }
-    @ResponseStatus(HttpStatus.CREATED)
+
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Category saveCategory(@RequestBody Category category) {
         return categoryServices.saveCategory(category);
     }
@@ -31,11 +31,6 @@ public class CategoryController {
         return categoryServices.updateCategory(category);
     }
 
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @GetMapping(path = "/{name}")
-    public Optional<Category> findByName(@PathVariable("name") String name) {
-        return categoryServices.findByName(name);
-    }
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping(path = "/{name}")
     public String deleteCategory(@PathVariable("name") String name) throws ResourceNotFoundException {
