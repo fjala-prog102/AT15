@@ -1,7 +1,7 @@
 package org.fjala.prog102.designpatterns.behavioral.TemplateMethod;
 
 public abstract class SandwichMaker {
-    public void makeSandwich() {  //Template method 
+    final public void makeSandwich() {  //Template method 
         prepareIngredients();
         toastBread();
         prepareSandwich();

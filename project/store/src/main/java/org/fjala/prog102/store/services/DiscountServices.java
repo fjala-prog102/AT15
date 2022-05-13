@@ -3,6 +3,7 @@ package org.fjala.prog102.store.services;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import org.fjala.prog102.store.exception.ResourceNotFoundException;
 import org.fjala.prog102.store.models.Discount;
 import org.fjala.prog102.store.repositories.DiscountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +34,11 @@ public class DiscountServices {
         }
     }
 
-    public boolean deleteDiscount(Long discountID) {
+    public void deleteDiscount(Long discountID) throws ResourceNotFoundException {
         try {
             discountRepository.deleteById(discountID);
-            return true;
         } catch (Exception e) {
-            return false;
+            throw new ResourceNotFoundException("The discount with the given id was not found", e);
         }
     }
 

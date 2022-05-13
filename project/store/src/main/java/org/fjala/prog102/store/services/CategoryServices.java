@@ -1,6 +1,9 @@
 package org.fjala.prog102.store.services;
 
 import java.util.List;
+import java.util.Optional;
+
+import org.fjala.prog102.store.exception.ResourceNotFoundException;
 import org.fjala.prog102.store.models.Category;
 import org.fjala.prog102.store.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +26,16 @@ public class CategoryServices {
         }
     }
 
-    public List<Category> findByName(String name) {
+    public Optional<Category> findByName(String name) {
         return categoryRepository.findByName(name);
     }
 
-    public boolean deleteCategory(String name) {
+    public boolean deleteCategory(String name) throws ResourceNotFoundException {
         try {
             categoryRepository.deleteById(name);
             return true;
         } catch (Exception e) {
-            return false;
+            throw new ResourceNotFoundException("The category with the providen name was not found", e);
         }
     }
 
@@ -43,4 +46,5 @@ public class CategoryServices {
             throw new RuntimeException("The providen Category name does not exist.");
         }
     }
+
 }
