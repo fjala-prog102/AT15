@@ -17,7 +17,9 @@ public class Dollar20Dispenser implements DispenseChain{
 			System.out.println("Dispensing "+num+" 20$ note");
 			if(remainder !=0) this.chain.dispense(new Currency(remainder));
 		}else{
-			this.chain.dispense(cur);
+			if(chain != null){
+				this.chain.dispense(cur);
+			}
 		}
 	}
 

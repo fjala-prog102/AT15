@@ -6,6 +6,7 @@ public class Dollar50Dispenser implements DispenseChain {
 
 	@Override
 	public void setNextChain(DispenseChain nextChain) {
+
 		this.chain=nextChain;
 	}
 
@@ -17,7 +18,9 @@ public class Dollar50Dispenser implements DispenseChain {
 			System.out.println("Dispensing "+num+" 50$ note");
 			if(remainder !=0) this.chain.dispense(new Currency(remainder));
 		}else{
-			this.chain.dispense(cur);
+			if(chain != null){
+				this.chain.dispense(cur);
+			}
 		}
 	}
 
