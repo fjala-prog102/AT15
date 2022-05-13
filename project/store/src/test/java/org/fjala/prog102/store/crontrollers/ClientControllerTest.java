@@ -9,8 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.mockito.ArgumentMatchers.contains;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -50,6 +52,10 @@ public class ClientControllerTest {
 
     @Test
     public void itShouldDeleteAClientById() throws Exception {
+        this.mockMvc.perform(delete("/clients/delete/1000"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string(contains("A client identificationNumber must be specified")));
+
         Client client = new Client();
         client.setIdentificationNumber(39509979L);
         client.setFirstName("Agustin");
@@ -57,8 +63,7 @@ public class ClientControllerTest {
         client.setAddress("43, 845 LP");
         clientServices.saveClient(client);
 
-        mockMvc.perform(delete("/clients/" + client.getIdentificationNumber())
-                        .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(delete("/clients/delete/" + client.getIdentificationNumber()))
                 .andExpect(status().is2xxSuccessful());
     }
 }
