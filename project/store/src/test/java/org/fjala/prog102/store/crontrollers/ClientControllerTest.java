@@ -71,7 +71,7 @@ public class ClientControllerTest {
     @Test
     public void itShouldFindAClientById() throws Exception {
         this.mockMvc.perform(get("/clients/find/1000"))
-                .andExpect(status().is2xxSuccessful());
+                .andExpect(status().is4xxClientError());
 
 
         Client client = new Client();
