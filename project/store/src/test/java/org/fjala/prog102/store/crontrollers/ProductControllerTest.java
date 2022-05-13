@@ -74,7 +74,7 @@ public class ProductControllerTest {
             .content(stringBody)
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isNotFound())
+            .andExpect(status().is5xxServerError())
             .andExpect(content().string(contains("To create a new product, you do not have to set an ID")));
     }
 

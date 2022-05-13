@@ -56,7 +56,7 @@ public class ProductController {
         try {
             response.setData(productServices.saveProduct(product));
         } catch (ResourceNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+            throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED, e.getMessage(), e);
         }
         return response;
     }
