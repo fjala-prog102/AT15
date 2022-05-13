@@ -1,8 +1,6 @@
 package org.fjala.prog102.designpatterns.behavioral.iterator;
 
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Random;
 
 public class DiceRace {
