@@ -1,8 +1,7 @@
 package org.fjala.prog102.store.crontrollers;
 
-import org.fjala.prog102.store.models.Brand;
+import org.fjala.prog102.store.models.Client;
 import org.fjala.prog102.store.services.ClientServices;
-import org.fjala.prog102.store.services.ProductServices;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -10,8 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -48,5 +46,19 @@ public class ClientControllerTest {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void itShouldDeleteAClientById() throws Exception {
+        Client client = new Client();
+        client.setIdentificationNumber(39509979L);
+        client.setFirstName("Agustin");
+        client.setLastName("Mediotti");
+        client.setAddress("43, 845 LP");
+        clientServices.saveClient(client);
+
+        mockMvc.perform(delete("/clients/" + client.getIdentificationNumber())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is2xxSuccessful());
     }
 }
