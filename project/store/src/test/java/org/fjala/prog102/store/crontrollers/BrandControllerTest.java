@@ -83,4 +83,27 @@ public class BrandControllerTest {
         this.mockMvc.perform(delete("/brands/sony"))
         .andExpect(status().isNotFound());
     }
+
+    @Test
+    public void itShouldUpdateABrand() throws Exception {
+        Brand brand = new Brand();
+        brand.setName("Xiaomi");
+        brand.setDescription("Smartphones");
+        brand.setWebsite("www.xioami.com");
+        brandServices.saveBrand(brand);
+
+        String stringBody = "{";
+        stringBody += "\"name\":\"Xiaomi\",";
+        stringBody += "\"description\":\"Smartphones and computers\",";
+        stringBody += "\"website\":\"www.xiaomi.com\"";
+        stringBody += "}";
+
+        this.mockMvc.perform(
+            put("/brands")
+            .content(stringBody)
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON))
+            .andDo(print())
+            .andExpect(status().isOk());
+    }
 }
