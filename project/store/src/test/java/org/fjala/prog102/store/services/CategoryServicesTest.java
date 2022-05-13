@@ -27,16 +27,32 @@ public class CategoryServicesTest {
     }
 
     @Test
-    public void saveCategoriesTest() {
+    public void saveCategoriesTest() throws ResourceNotFoundException {
         Category category = new Category();
-        category.setName("Fruits");
+        category.setName("Example");
         categoryServices.saveCategory(category);
         assertNotNull(category);
         assertTrue(category.getProducts() == null || category.getProducts().size() == 0);
+        categoryServices.deleteCategory("Example");
     }
 
     @Test
-    public void updateCategoryTest() {
+    public void itShouldNotSaveAExistingCategory() throws ResourceNotFoundException {
+        Category category = new Category();
+        category.setName("Fruits");
+        categoryServices.saveCategory(category);
+        try {
+            Category category2 = new Category();
+            category2.setName("Fruits");
+            categoryServices.saveCategory(category2);
+        } catch (RuntimeException e) {
+            assertEquals("Cannot create a new category with the same name as an existing one.", e.getMessage());
+        }
+        categoryServices.deleteCategory("Fruits");
+    }
+
+    @Test
+    public void updateCategoryTest() throws ResourceNotFoundException {
         Category category = new Category();
         category.setName("computers");
         category.setDescription("blblbla");
@@ -46,14 +62,15 @@ public class CategoryServicesTest {
         Category updatedCategory = categoryServices.updateCategory(category);
         assertNotNull(updatedCategory);
         assertEquals("new bjlbjlajbl", category.getDescription());
+        categoryServices.deleteCategory("computers");
     }
 
     @Test
     public void updateUnexistingCategoryTest() {
         try {
             Category newCategory = new Category();
-            newCategory.setName("computers");
-            newCategory.setDescription("yadayadaydada");
+            newCategory.setName("Laptops");
+            newCategory.setDescription("Laptops description");
             categoryServices.updateCategory(newCategory);
         } catch (RuntimeException myException) {
             assertEquals("The providen Category name does not exist.", myException.getMessage());
