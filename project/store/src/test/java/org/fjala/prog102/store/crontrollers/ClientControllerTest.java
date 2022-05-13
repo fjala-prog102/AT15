@@ -67,4 +67,21 @@ public class ClientControllerTest {
         mockMvc.perform(delete("/clients/delete/" + client.getIdentificationNumber()))
                 .andExpect(status().is2xxSuccessful());
     }
+
+    @Test
+    public void itShouldFindAClientById() throws Exception {
+        this.mockMvc.perform(get("/clients/find/1000"))
+                .andExpect(status().is2xxSuccessful());
+
+
+        Client client = new Client();
+        client.setIdentificationNumber(39509979L);
+        client.setFirstName("Agustin");
+        client.setLastName("Mediotti");
+        client.setAddress("43, 845 LP");
+        clientServices.saveClient(client);
+
+        mockMvc.perform(get("/clients/find/" + client.getIdentificationNumber()))
+                .andExpect(status().is2xxSuccessful());
+    }
 }
