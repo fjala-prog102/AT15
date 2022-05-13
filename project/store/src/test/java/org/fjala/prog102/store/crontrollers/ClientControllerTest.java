@@ -56,6 +56,7 @@ public class ClientControllerTest {
                 .andExpect(status().isNotFound())
                 .andExpect(content().string(contains("A client identificationNumber must be specified")));
 
+
         Client client = new Client();
         client.setIdentificationNumber(39509979L);
         client.setFirstName("Agustin");
