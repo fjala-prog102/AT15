@@ -5,13 +5,13 @@ public class Main {
         Director director = new Director();
         NormalBuilder normal = new NormalBuilder();
         director.Construct(normal);
-        Product car1 = normal.getProduct();
+        normal.getProduct();
 
         System.out.println("-------------------------");
         //Building a sport car
         SportBuilder sport = new SportBuilder();
         director.Construct(sport);
-        Product car2 = sport.getProduct();
+        sport.getProduct();
 
     }
 }
