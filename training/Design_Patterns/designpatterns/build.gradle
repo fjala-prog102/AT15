@@ -34,3 +34,8 @@ task runTemplateMethod (dependsOn: 'classes', type: JavaExec) {
     main = 'org.fjala.prog102.designpatterns.behavioral.TemplateMethod.Main'
     classpath = sourceSets.main.runtimeClasspath
 }
+
+task runBuilderPattern (dependsOn: 'classes', type: JavaExec) {
+    main = 'org.fjala.prog102.designpatterns.creational.builder.Main'
+    classpath = sourceSets.main.runtimeClasspath
+}
