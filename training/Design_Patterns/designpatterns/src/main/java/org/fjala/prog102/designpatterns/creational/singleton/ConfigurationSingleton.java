@@ -13,14 +13,10 @@ public class ConfigurationSingleton {
     @Setter
     private String description;
 
-
-
-
-
     private static ConfigurationSingleton instance = null;
 
     public synchronized static ConfigurationSingleton getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new ConfigurationSingleton();
         }
         return instance;
@@ -28,7 +24,5 @@ public class ConfigurationSingleton {
 
     private ConfigurationSingleton() {
     }
-
-
 
 }
